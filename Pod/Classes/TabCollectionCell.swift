@@ -9,16 +9,31 @@
 import UIKit
 
 class TabCollectionCell: UICollectionViewCell {
-
+    private var itemContainer =  UIView()
+    private var currentBarView = UIView()
+    private var touchButton = UIButton()
     var tabItemButtonPressedBlock: (Void -> Void)?
     var option: TabPageOption = TabPageOption()
-    var item: String = "" {
+    var titleItem: TabTitleViewProtocol? {
         didSet {
-            itemLabel.text = item
-            itemLabel.invalidateIntrinsicContentSize()
-            invalidateIntrinsicContentSize()
+
+            if let titleItem = self.titleItem as? UIView {
+                if titleItem is TabTitleViewProtocol {
+                    titleItem.backgroundColor = UIColor.redColor()
+                    titleItem.sizeToFit()
+                    itemContainer.subviews.forEach({ $0.removeFromSuperview() })
+                    itemContainer.addSubview(titleItem)
+                    itemContainer.frame = titleItem.frame
+                } else {
+                    print("error")
+                }
+            } else {
+                print("error")
+            }
+
         }
     }
+
     var isCurrent: Bool = false {
         didSet {
             currentBarView.hidden = !isCurrent
@@ -28,25 +43,37 @@ class TabCollectionCell: UICollectionViewCell {
                 unHighlightTitle()
             }
             currentBarView.backgroundColor = option.currentColor
+            currentBarView.backgroundColor = UIColor.brownColor()
             layoutIfNeeded()
         }
     }
 
-    @IBOutlet private weak var itemLabel: UILabel!
-    @IBOutlet private weak var currentBarView: UIView!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
+    init() {
+        super.init(frame: CGRect.zero)
+        self.contentView.backgroundColor = UIColor.blackColor()
         currentBarView.hidden = true
+        touchButton.addTarget(self, action: #selector(TabCollectionCell.tabItemTouchUpInside(_:)), forControlEvents: .TouchUpInside)
+        itemContainer.backgroundColor = UIColor.greenColor()
+        self.contentView.addSubview(itemContainer)
+        self.contentView.addSubview(currentBarView)
+        self.contentView.addSubview(touchButton)
+    }
+
+    override convenience init(frame: CGRect) {
+        self.init()
+    }
+
+    required convenience init?(coder aDecoder: NSCoder) {
+        self.init()
     }
 
     override func sizeThatFits(size: CGSize) -> CGSize {
-        if item.characters.count == 0 {
-            return CGSizeZero
-        }
 
         return intrinsicContentSize()
+    }
+
+    deinit {
+        touchButton.removeTarget(self, action: #selector(TabCollectionCell.tabItemTouchUpInside(_:)), forControlEvents: .TouchUpInside)
     }
 
     class func cellIdentifier() -> String {
@@ -59,14 +86,19 @@ class TabCollectionCell: UICollectionViewCell {
 
 extension TabCollectionCell {
     override func intrinsicContentSize() -> CGSize {
-        let width: CGFloat
+        var width: CGFloat = 0.0
         if let tabWidth = option.tabWidth where tabWidth > 0.0 {
             width = tabWidth
-        } else {
-            width = itemLabel.intrinsicContentSize().width + option.tabMargin * 2
         }
 
+        width = max(width, itemContainer.frame.width + option.tabMargin * 2)
+
         let size = CGSizeMake(width, option.tabHeight)
+        itemContainer.frame.size = size
+        itemContainer.subviews.forEach({ $0.frame.size = size })
+        touchButton.frame.size = size
+        currentBarView.frame = CGRect(x: 0, y: size.height - option.currentBarHeight, width: width, height: option.currentBarHeight)
+        
         return size
     }
 
@@ -77,15 +109,12 @@ extension TabCollectionCell {
     func showCurrentBarView() {
         currentBarView.hidden = false
     }
-
     func highlightTitle() {
-        itemLabel.textColor = option.currentColor
-        itemLabel.font = UIFont.boldSystemFontOfSize(option.fontSize)
+        titleItem?.highlightTitle()
     }
 
     func unHighlightTitle() {
-        itemLabel.textColor = option.defaultColor
-        itemLabel.font = UIFont.systemFontOfSize(option.fontSize)
+        titleItem?.unHighlightTitle()
     }
 }
 
@@ -93,7 +122,7 @@ extension TabCollectionCell {
 // MARK: - IBAction
 
 extension TabCollectionCell {
-    @IBAction private func tabItemTouchUpInside(button: UIButton) {
+    @objc private func tabItemTouchUpInside(button: UIButton) {
         tabItemButtonPressedBlock?()
     }
 }

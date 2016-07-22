@@ -7,34 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		025BB0146A1DA03D73AD37975E40D4D5 /* TabPageOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CC3F53AC15FA1778F1386540843BC7 /* TabPageOption.swift */; };
 		03A04C25A2E1768B068679E96859D271 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
-		0AC71D107FCBBC9829A7D47D26D03406 /* TabPageOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CC3F53AC15FA1778F1386540843BC7 /* TabPageOption.swift */; };
 		10B98DD9144BA5498E221B44EE71068F /* Pods-TabPageViewController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FDF9C713061BD42EE21B1EB702D7DAC /* Pods-TabPageViewController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1ACF955B186EADB877F0E0BBC265804E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
-		219C1A5232E1569D57BD7BAEEDAE8D70 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B985EAA0BDC7ECAA6373D4A702D24 /* TabView.swift */; };
-		2C980C0F70AAA8B1288E51AEF5BF51A9 /* TabCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D068C87E7FE1A5B0F58FC4AE72A4D63 /* TabCollectionCell.swift */; };
 		2EE040372158D1CFAAA207964B54955A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */; };
-		3001BD5D5964E8809F837CD6FD1D6781 /* TabPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B53122EE0A4EFC0317BC994726A3BDFB /* TabPageViewController.storyboard */; };
-		32046836010D511507B01FAC13C77ECD /* TabCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D068C87E7FE1A5B0F58FC4AE72A4D63 /* TabCollectionCell.swift */; };
-		422D4D3C3ED94E389B198B6229E3DCFA /* TabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89A1C57B1C7A3129417D6EECE5572A07 /* TabView.xib */; };
-		4D2D82B46FE09D7F5C1D605AF6C0FCEE /* TabPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B53122EE0A4EFC0317BC994726A3BDFB /* TabPageViewController.storyboard */; };
+		3258C1F271963C7294D12EB054E461DD /* TabTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C202B72AEEA7A65E89D6CF9C6A61BCE8 /* TabTitleLabel.swift */; };
+		3430DFF2F0C0440246BD91E566E8041E /* TabPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DB1EBFA478DFF76B63AE0875F64213 /* TabPageController.swift */; };
+		53F698C338E802A778E66E8722B3180D /* TabPageViewController-iOS8.0-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8619290A53D57E837E7FA036F01C8578 /* TabPageViewController-iOS8.0-dummy.m */; };
+		599221D3F60B76E1384406DC2FC408B6 /* TabPageOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA35704D114A35F6EE2EDE7A5C03C2BB /* TabPageOption.swift */; };
 		5E53755704B38C67475A25591AD01F37 /* TabPageViewController-iOS8.0-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7014F45444E0641C6A54C57204A179C9 /* TabPageViewController-iOS8.0-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EFAA999969CF738D7F3B0524C0B6677 /* Pods-TabPageViewController_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BF2FF7C72720D74A304F69908E8BC0F3 /* Pods-TabPageViewController_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		67600DC8C142AAD529A834EAAC6FDD40 /* Pods-TabPageViewController_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E907B7B3A7FAA2009AF7C8FD8208A25 /* Pods-TabPageViewController_Tests-dummy.m */; };
+		712FB30EEB00ABC5A128D8215307DAFB /* TabTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C202B72AEEA7A65E89D6CF9C6A61BCE8 /* TabTitleLabel.swift */; };
 		794A0D1E5B1183C17727D5BE91C9548E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */; };
-		7B7F695C96038CED29A4AA4E224DB131 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444E69EC56B84C4D170BFCA09B408A7 /* TabPageViewController.swift */; };
 		7EA9162F1D2A5F88BB8D0C7A0BEFCDBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
-		B07453F4D89F078CCC084C1B0D40B61E /* TabCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DD3A5D7285AF1368FBCA513521CE1 /* TabCollectionCell.xib */; };
-		B0E3E464A305E8927031401F901C0394 /* TabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89A1C57B1C7A3129417D6EECE5572A07 /* TabView.xib */; };
-		CE3ED407D4DE61AEE000566658B869CC /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B985EAA0BDC7ECAA6373D4A702D24 /* TabView.swift */; };
-		CE59E533E509C1FD1860284CD82D1B72 /* TabCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DD3A5D7285AF1368FBCA513521CE1 /* TabCollectionCell.xib */; };
-		D13F3BCA2E48E8521B609F2358C632BC /* TabPageViewController-iOS8.0-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8619290A53D57E837E7FA036F01C8578 /* TabPageViewController-iOS8.0-dummy.m */; };
+		8771A6FD6AFBE56FAAF1CBF86EF07ACD /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01427956CC2EF898A819B2BAE2AE9DA /* TabView.swift */; };
+		882A1D65AFF27E649B123EEE764782DB /* TabCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9EA3648B9463453B698F54F70936E1 /* TabCollectionCell.swift */; };
+		9462799B650B6A6F91DF510F88A27E03 /* TabPageViewController-iOS8.3-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F25EB2BF22E85EDFB39096F0DB916B /* TabPageViewController-iOS8.3-dummy.m */; };
+		AEA2DD5EFB816F5FA34BC658C548F63F /* TabCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9EA3648B9463453B698F54F70936E1 /* TabCollectionCell.swift */; };
+		AFE90ED8ED30A9030A2818E3B33F05B9 /* TabPageOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA35704D114A35F6EE2EDE7A5C03C2BB /* TabPageOption.swift */; };
+		C5B022939A8BBF7CB7E6130D02C62430 /* TabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B0D86E3CE296C795127106102008FF /* TabView.xib */; };
 		D748C7711BC662AB488742BE97A854D9 /* TabPageViewController-iOS8.3-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A010EB8FE237097614A4B2D4CD7EAF8 /* TabPageViewController-iOS8.3-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E399B2D9A44F7AADDED3B7C9C44965B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
+		ED9661B9FDB30E5F56D18F5FC2FDDCD0 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01427956CC2EF898A819B2BAE2AE9DA /* TabView.swift */; };
 		EDDD8C7C804CB9EC29FBCD82024D3A0F /* Pods-TabPageViewController_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2286F8A656FBFFFC8F4958693A351D93 /* Pods-TabPageViewController_Example-dummy.m */; };
-		F9F11B8F728FAF86E747532E60CF1E02 /* TabPageViewController-iOS8.3-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F25EB2BF22E85EDFB39096F0DB916B /* TabPageViewController-iOS8.3-dummy.m */; };
-		FD10ADAA7E32028486D0CA621C6DC946 /* TabPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F444E69EC56B84C4D170BFCA09B408A7 /* TabPageViewController.swift */; };
+		F9D581A1D0C11CE0F3A89A069C0EF7DB /* TabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B0D86E3CE296C795127106102008FF /* TabView.xib */; };
+		FB48CE06BB4F6328116F68F4F6DBC40B /* TabPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DB1EBFA478DFF76B63AE0875F64213 /* TabPageController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,9 +53,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D068C87E7FE1A5B0F58FC4AE72A4D63 /* TabCollectionCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TabCollectionCell.swift; sourceTree = "<group>"; };
 		0E907B7B3A7FAA2009AF7C8FD8208A25 /* Pods-TabPageViewController_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TabPageViewController_Tests-dummy.m"; sourceTree = "<group>"; };
+		10DB1EBFA478DFF76B63AE0875F64213 /* TabPageController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TabPageController.swift; sourceTree = "<group>"; };
 		1A1627D12EFA0AB2A9158D4CF68D324C /* Pods-TabPageViewController_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TabPageViewController_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		1A9EA3648B9463453B698F54F70936E1 /* TabCollectionCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TabCollectionCell.swift; sourceTree = "<group>"; };
 		227B954392557F97EE2984D666CB03D1 /* TabPageViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TabPageViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2286F8A656FBFFFC8F4958693A351D93 /* Pods-TabPageViewController_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TabPageViewController_Example-dummy.m"; sourceTree = "<group>"; };
 		23042EBBC2F3C28E6AF9635935CDEF7D /* Pods-TabPageViewController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TabPageViewController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -73,31 +72,29 @@
 		540BC72F8D55F8ED7D8B30AB576E6CD7 /* Pods-TabPageViewController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TabPageViewController_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		565A65DF3B3210BAAC0AEEEF2669C739 /* Pods-TabPageViewController_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TabPageViewController_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		5A010EB8FE237097614A4B2D4CD7EAF8 /* TabPageViewController-iOS8.3-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "TabPageViewController-iOS8.3-umbrella.h"; path = "../TabPageViewController-iOS8.3/TabPageViewController-iOS8.3-umbrella.h"; sourceTree = "<group>"; };
-		5E2B985EAA0BDC7ECAA6373D4A702D24 /* TabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		7014F45444E0641C6A54C57204A179C9 /* TabPageViewController-iOS8.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TabPageViewController-iOS8.0-umbrella.h"; sourceTree = "<group>"; };
 		7461540661C874487AC5FB7F7387B993 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../TabPageViewController-iOS8.3/Info.plist"; sourceTree = "<group>"; };
 		8619290A53D57E837E7FA036F01C8578 /* TabPageViewController-iOS8.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TabPageViewController-iOS8.0-dummy.m"; sourceTree = "<group>"; };
-		89A1C57B1C7A3129417D6EECE5572A07 /* TabView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = TabView.xib; sourceTree = "<group>"; };
-		8B6DD3A5D7285AF1368FBCA513521CE1 /* TabCollectionCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = TabCollectionCell.xib; sourceTree = "<group>"; };
 		8B7300B5742B5EDCB9467F0D369FA96E /* Pods-TabPageViewController_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TabPageViewController_Example-resources.sh"; sourceTree = "<group>"; };
 		8E27A9FB30E9ECE9FD5FAAED9CB04950 /* Pods-TabPageViewController_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TabPageViewController_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		8F1C1151598D0C791AB86FBC878D55FD /* Pods-TabPageViewController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TabPageViewController_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A01427956CC2EF898A819B2BAE2AE9DA /* TabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		A5F25EB2BF22E85EDFB39096F0DB916B /* TabPageViewController-iOS8.3-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "TabPageViewController-iOS8.3-dummy.m"; path = "../TabPageViewController-iOS8.3/TabPageViewController-iOS8.3-dummy.m"; sourceTree = "<group>"; };
+		A9B0D86E3CE296C795127106102008FF /* TabView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = TabView.xib; sourceTree = "<group>"; };
 		AA5E268FA97C9FF7B10A0ED6437B1A84 /* TabPageViewController-iOS8.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "TabPageViewController-iOS8.0.modulemap"; sourceTree = "<group>"; };
 		B13E1E51AD01DF4CC76F629B430D956C /* Pods-TabPageViewController_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TabPageViewController_Tests-resources.sh"; sourceTree = "<group>"; };
-		B53122EE0A4EFC0317BC994726A3BDFB /* TabPageViewController.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = TabPageViewController.storyboard; sourceTree = "<group>"; };
 		B656DD4FA3C4BF5CF393DC4370867A7C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B8BADE4D6BA9B936A6892231E33129BA /* TabPageViewController-iOS8.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "TabPageViewController-iOS8.0.xcconfig"; sourceTree = "<group>"; };
 		BF2FF7C72720D74A304F69908E8BC0F3 /* Pods-TabPageViewController_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TabPageViewController_Tests-umbrella.h"; sourceTree = "<group>"; };
 		C0CEF9C1F8C99839F2BCBEB87944442C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C202B72AEEA7A65E89D6CF9C6A61BCE8 /* TabTitleLabel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TabTitleLabel.swift; sourceTree = "<group>"; };
 		C8AE13D64DBE4DE2F00CE1BB5132AD5C /* Pods-TabPageViewController_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-TabPageViewController_Example.modulemap"; sourceTree = "<group>"; };
+		CA35704D114A35F6EE2EDE7A5C03C2BB /* TabPageOption.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TabPageOption.swift; sourceTree = "<group>"; };
 		CD51225797A9D2920BD11D9EC927954D /* Pods-TabPageViewController_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-TabPageViewController_Tests.modulemap"; sourceTree = "<group>"; };
-		D4CC3F53AC15FA1778F1386540843BC7 /* TabPageOption.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TabPageOption.swift; sourceTree = "<group>"; };
 		E8579AAD5F3F404CE3B031A6976BEFD5 /* TabPageViewController-iOS8.3.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "TabPageViewController-iOS8.3.xcconfig"; path = "../TabPageViewController-iOS8.3/TabPageViewController-iOS8.3.xcconfig"; sourceTree = "<group>"; };
 		E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		F444E69EC56B84C4D170BFCA09B408A7 /* TabPageViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TabPageViewController.swift; sourceTree = "<group>"; };
 		F4B37FC5A1FFAA5F310628F828B7743B /* Pods-TabPageViewController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TabPageViewController_Example.release.xcconfig"; sourceTree = "<group>"; };
 		F68839545AF2A4BCDA939A3790074E28 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAE03E0E1194F1010F907CC1C1E37CCC /* Pods-TabPageViewController_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TabPageViewController_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -149,31 +146,32 @@
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
+		19C063916B5B658E9FDE3350DA56EF53 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1A9EA3648B9463453B698F54F70936E1 /* TabCollectionCell.swift */,
+				10DB1EBFA478DFF76B63AE0875F64213 /* TabPageController.swift */,
+				CA35704D114A35F6EE2EDE7A5C03C2BB /* TabPageOption.swift */,
+				C202B72AEEA7A65E89D6CF9C6A61BCE8 /* TabTitleLabel.swift */,
+				A01427956CC2EF898A819B2BAE2AE9DA /* TabView.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		3C49F30A36A6009DB210A972FA9938B1 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				A9B0D86E3CE296C795127106102008FF /* TabView.xib */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				F302CD3B306AF1ED96B9AF31FCDBC26C /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		5A0F358E600BEADF275F19ACB42A0ACD /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				0D068C87E7FE1A5B0F58FC4AE72A4D63 /* TabCollectionCell.swift */,
-				D4CC3F53AC15FA1778F1386540843BC7 /* TabPageOption.swift */,
-				F444E69EC56B84C4D170BFCA09B408A7 /* TabPageViewController.swift */,
-				5E2B985EAA0BDC7ECAA6373D4A702D24 /* TabView.swift */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		7109371FBD30B5FF989420D130F8EE45 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				5A0F358E600BEADF275F19ACB42A0ACD /* Classes */,
-			);
-			path = Pod;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -190,7 +188,7 @@
 		86B8812EA7B67A1545DF3ADFCD542031 /* TabPageViewController */ = {
 			isa = PBXGroup;
 			children = (
-				7109371FBD30B5FF989420D130F8EE45 /* Pod */,
+				97FDB97FFB95E05212728D319667D9ED /* Pod */,
 				931A04826D4ADCC2508A0D16AB2898CA /* Resources */,
 				C470BBB63121DA2E798DE0BB293025D8 /* Support Files */,
 			);
@@ -210,9 +208,17 @@
 		931A04826D4ADCC2508A0D16AB2898CA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D30890144905E1CEBBCC61699E91D878 /* Pod */,
+				D360D100377FF6ED01BD97E9CD17B7A3 /* Pod */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		97FDB97FFB95E05212728D319667D9ED /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				19C063916B5B658E9FDE3350DA56EF53 /* Classes */,
+			);
+			path = Pod;
 			sourceTree = "<group>";
 		};
 		B16A4FDA754BC0D8D74BE25F1BB4CC97 /* Pods-TabPageViewController_Example */ = {
@@ -282,20 +288,10 @@
 			path = "Target Support Files/Pods-TabPageViewController_Tests";
 			sourceTree = "<group>";
 		};
-		CE44EFBE6824CEDE364C11773F4BB864 /* Classes */ = {
+		D360D100377FF6ED01BD97E9CD17B7A3 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				8B6DD3A5D7285AF1368FBCA513521CE1 /* TabCollectionCell.xib */,
-				B53122EE0A4EFC0317BC994726A3BDFB /* TabPageViewController.storyboard */,
-				89A1C57B1C7A3129417D6EECE5572A07 /* TabView.xib */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		D30890144905E1CEBBCC61699E91D878 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				CE44EFBE6824CEDE364C11773F4BB864 /* Classes */,
+				3C49F30A36A6009DB210A972FA9938B1 /* Classes */,
 			);
 			path = Pod;
 			sourceTree = "<group>";
@@ -351,9 +347,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AD1CCFE1279ADEF7EDB786F550F1E96E /* Build configuration list for PBXNativeTarget "TabPageViewController-iOS8.3" */;
 			buildPhases = (
-				5BFFED3C84D6E5E361937372FDD9D63E /* Sources */,
+				1453EBD017DAC6EB8CDA969825FB969E /* Sources */,
 				0303D7D473BE79AED1E24B37E3662D88 /* Frameworks */,
-				7C98673EF2D209A2E79D8289BC3833A4 /* Resources */,
+				81FC226DB45FC8F87F4AB09D7C1ED5A3 /* Resources */,
 				E4C0A416E6E6618BADB0B7E8F556A2D1 /* Headers */,
 			);
 			buildRules = (
@@ -387,9 +383,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4AB4895FED6A51D06E40D86717F87DE /* Build configuration list for PBXNativeTarget "TabPageViewController-iOS8.0" */;
 			buildPhases = (
-				C1C98235D44D318960867CB233ECF825 /* Sources */,
+				818BBF7010A6B4184451C0D9482DC2D7 /* Sources */,
 				AA882276EA99A1C993E2971AC357DEC8 /* Frameworks */,
-				CB2A10B407E78B0969D5EEF841AA545A /* Resources */,
+				AC6F59E041B21F3B50F6F622860D6CCB /* Resources */,
 				15C2654057F16EA1CC6671DD35E92095 /* Headers */,
 			);
 			buildRules = (
@@ -449,29 +445,38 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7C98673EF2D209A2E79D8289BC3833A4 /* Resources */ = {
+		81FC226DB45FC8F87F4AB09D7C1ED5A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE59E533E509C1FD1860284CD82D1B72 /* TabCollectionCell.xib in Resources */,
-				4D2D82B46FE09D7F5C1D605AF6C0FCEE /* TabPageViewController.storyboard in Resources */,
-				B0E3E464A305E8927031401F901C0394 /* TabView.xib in Resources */,
+				F9D581A1D0C11CE0F3A89A069C0EF7DB /* TabView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CB2A10B407E78B0969D5EEF841AA545A /* Resources */ = {
+		AC6F59E041B21F3B50F6F622860D6CCB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B07453F4D89F078CCC084C1B0D40B61E /* TabCollectionCell.xib in Resources */,
-				3001BD5D5964E8809F837CD6FD1D6781 /* TabPageViewController.storyboard in Resources */,
-				422D4D3C3ED94E389B198B6229E3DCFA /* TabView.xib in Resources */,
+				C5B022939A8BBF7CB7E6130D02C62430 /* TabView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1453EBD017DAC6EB8CDA969825FB969E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AEA2DD5EFB816F5FA34BC658C548F63F /* TabCollectionCell.swift in Sources */,
+				FB48CE06BB4F6328116F68F4F6DBC40B /* TabPageController.swift in Sources */,
+				599221D3F60B76E1384406DC2FC408B6 /* TabPageOption.swift in Sources */,
+				9462799B650B6A6F91DF510F88A27E03 /* TabPageViewController-iOS8.3-dummy.m in Sources */,
+				712FB30EEB00ABC5A128D8215307DAFB /* TabTitleLabel.swift in Sources */,
+				ED9661B9FDB30E5F56D18F5FC2FDDCD0 /* TabView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DA335B532DCAD1FF22E8D336B80115C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -480,27 +485,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5BFFED3C84D6E5E361937372FDD9D63E /* Sources */ = {
+		818BBF7010A6B4184451C0D9482DC2D7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32046836010D511507B01FAC13C77ECD /* TabCollectionCell.swift in Sources */,
-				0AC71D107FCBBC9829A7D47D26D03406 /* TabPageOption.swift in Sources */,
-				F9F11B8F728FAF86E747532E60CF1E02 /* TabPageViewController-iOS8.3-dummy.m in Sources */,
-				7B7F695C96038CED29A4AA4E224DB131 /* TabPageViewController.swift in Sources */,
-				219C1A5232E1569D57BD7BAEEDAE8D70 /* TabView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C1C98235D44D318960867CB233ECF825 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2C980C0F70AAA8B1288E51AEF5BF51A9 /* TabCollectionCell.swift in Sources */,
-				025BB0146A1DA03D73AD37975E40D4D5 /* TabPageOption.swift in Sources */,
-				D13F3BCA2E48E8521B609F2358C632BC /* TabPageViewController-iOS8.0-dummy.m in Sources */,
-				FD10ADAA7E32028486D0CA621C6DC946 /* TabPageViewController.swift in Sources */,
-				CE3ED407D4DE61AEE000566658B869CC /* TabView.swift in Sources */,
+				882A1D65AFF27E649B123EEE764782DB /* TabCollectionCell.swift in Sources */,
+				3430DFF2F0C0440246BD91E566E8041E /* TabPageController.swift in Sources */,
+				AFE90ED8ED30A9030A2818E3B33F05B9 /* TabPageOption.swift in Sources */,
+				53F698C338E802A778E66E8722B3180D /* TabPageViewController-iOS8.0-dummy.m in Sources */,
+				3258C1F271963C7294D12EB054E461DD /* TabTitleLabel.swift in Sources */,
+				8771A6FD6AFBE56FAAF1CBF86EF07ACD /* TabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

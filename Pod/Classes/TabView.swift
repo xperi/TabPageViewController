@@ -8,13 +8,13 @@
 
 import UIKit
 
-internal class TabView: UIView {
+public class TabView: UIView {
 
     var pageItemPressedBlock: ((index: Int, direction: UIPageViewControllerNavigationDirection) -> Void)?
-    var pageTabItems: [String] = [] {
+    public weak var dataSource: TabViewDataSource? = nil {
         didSet {
-            pageTabItemsCount = pageTabItems.count
-            beforeIndex = pageTabItems.count
+            pageTabItemsCount = dataSource?.tabViewItemCount(self) ?? 0
+            beforeIndex = dataSource?.tabViewItemCount(self) ?? 0
         }
     }
 
@@ -27,7 +27,6 @@ internal class TabView: UIView {
     private var pageTabItemsWidth: CGFloat = 0.0
     private var collectionViewContentOffsetX: CGFloat = 0.0
     private var currentBarViewWidth: CGFloat = 0.0
-    private var cellForSize: TabCollectionCell!
     private var cachedCellSizes: [NSIndexPath: CGSize] = [:]
     private var currentBarViewLeftConstraint: NSLayoutConstraint?
 
@@ -38,7 +37,7 @@ internal class TabView: UIView {
     @IBOutlet private weak var bottomBarViewHeightConstraint: NSLayoutConstraint!
 
     init(isInfinity: Bool, option: TabPageOption) {
-       super.init(frame: CGRectZero)
+       super.init(frame: CGRect.zero)
         self.option = option
         self.isInfinity = isInfinity
         NSBundle(forClass: TabView.self).loadNibNamed("TabView", owner: self, options: nil)
@@ -81,12 +80,11 @@ internal class TabView: UIView {
         self.addConstraints([top, left, bottom, right])
 
         let bundle = NSBundle(forClass: TabView.self)
-        let nib = UINib(nibName: TabCollectionCell.cellIdentifier(), bundle: bundle)
-        collectionView.registerNib(nib, forCellWithReuseIdentifier: TabCollectionCell.cellIdentifier())
-        cellForSize = nib.instantiateWithOwner(nil, options: nil).first as! TabCollectionCell
 
         collectionView.scrollsToTop = false
-
+        collectionView.alwaysBounceHorizontal = false
+        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        collectionView.registerClass(TabCollectionCell.self, forCellWithReuseIdentifier: TabCollectionCell.cellIdentifier())
         currentBarView.backgroundColor = option.currentColor
         if !isInfinity {
             currentBarView.removeFromSuperview()
@@ -114,7 +112,7 @@ internal class TabView: UIView {
         bottomBarViewHeightConstraint.constant = 1.0 / UIScreen.mainScreen().scale
     }
 
-    required internal init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 }
@@ -185,9 +183,13 @@ extension TabView {
      Center the current cell after page swipe
      */
     func scrollToHorizontalCenter() {
+
         let indexPath = NSIndexPath(forItem: currentIndex, inSection: 0)
-        collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: false)
-        collectionViewContentOffsetX = collectionView.contentOffset.x
+        if isScrollToItemAble(indexPath) {
+            collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: false)
+            collectionViewContentOffsetX = collectionView.contentOffset.x
+        }
+
     }
 
     /**
@@ -230,7 +232,9 @@ extension TabView {
      - parameter shouldScroll:
      */
     private func moveCurrentBarView(indexPath: NSIndexPath, animated: Bool, shouldScroll: Bool) {
-        if shouldScroll {
+
+
+        if shouldScroll && isScrollToItemAble(indexPath) {
             collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: animated)
             layoutIfNeeded()
             collectionViewContentOffsetX = 0.0
@@ -278,6 +282,12 @@ extension TabView {
             .flatMap { $0 as? TabCollectionCell }
             .forEach { $0.isCurrent = false }
     }
+
+    private func isScrollToItemAble(indexPath: NSIndexPath) -> Bool {
+
+        return pageTabItemsCount > 0
+
+    }
 }
 
 
@@ -285,19 +295,23 @@ extension TabView {
 
 extension TabView: UICollectionViewDataSource {
 
-    internal func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return isInfinity ? pageTabItemsCount * 3 : pageTabItemsCount
     }
 
-    internal func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TabCollectionCell.cellIdentifier(), forIndexPath: indexPath) as! TabCollectionCell
+    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        var cell = TabCollectionCell()
+
+        if var tabCollectionCell = collectionView.dequeueReusableCellWithReuseIdentifier(TabCollectionCell.cellIdentifier(), forIndexPath: indexPath) as? TabCollectionCell {
+            cell = tabCollectionCell
+        }
         configureCell(cell, indexPath: indexPath)
         return cell
     }
 
     private func configureCell(cell: TabCollectionCell, indexPath: NSIndexPath) {
         let fixedIndex = isInfinity ? indexPath.item % pageTabItemsCount : indexPath.item
-        cell.item = pageTabItems[fixedIndex]
+        cell.titleItem = self.dataSource?.tabView(self, viewForIndexPath: fixedIndex)
         cell.option = option
         cell.isCurrent = fixedIndex == (currentIndex % pageTabItemsCount)
         cell.tabItemButtonPressedBlock = { [weak self, weak cell] in
@@ -329,7 +343,7 @@ extension TabView: UICollectionViewDataSource {
 
 extension TabView: UICollectionViewDelegate {
 
-    internal func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView.dragging {
             currentBarView.hidden = true
             let indexPath = NSIndexPath(forItem: currentIndex, inSection: 0)
@@ -352,7 +366,7 @@ extension TabView: UICollectionViewDelegate {
 
     }
 
-    internal func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
         // Accept the touch event because animation is complete
         updateCollectionViewUserInteractionEnabled(true)
 
@@ -361,12 +375,37 @@ extension TabView: UICollectionViewDelegate {
         }
 
         let indexPath = NSIndexPath(forItem: currentIndex, inSection: 0)
-        if shouldScrollToItem {
+        if shouldScrollToItem && isScrollToItemAble(indexPath) {
             // After the moved so as not to sense of incongruity, to adjust the contentOffset at the currentIndex
             collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: false)
             shouldScrollToItem = false
         }
     }
+//    public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>){
+//        //This is the index of the "page" that we will be landing at
+//        let nearestIndex = Int(CGFloat(targetContentOffset.memory.x) / scrollView.bounds.size.width + 0.5)
+//
+//        //Just to make sure we don't scroll past your content
+//        let clampedIndex = max( min( nearestIndex, pageTabItemsCount - 1 ), 0 )
+//
+//        //This is the actual x position in the scroll view
+//        var xOffset = CGFloat(clampedIndex) * scrollView.bounds.size.width
+//
+//        //I've found that scroll views will "stick" unless this is done
+//        xOffset = xOffset == 0.0 ? 1.0 : xOffset
+//
+//        //Tell the scroll view to land on our page
+//        targetContentOffset.memory.x = xOffset
+//    }
+    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            var offset = collectionView.contentOffset
+            let indexPath = self.collectionView.indexPathForItemAtPoint(offset)
+           let indexPath = NSIndexPath(forItem: currentIndex, inSection: 0)
+            //moveCurrentBarView(indexPath!, animated: true, shouldScroll: true)
+        }
+    }
+
 }
 
 
@@ -374,12 +413,12 @@ extension TabView: UICollectionViewDelegate {
 
 extension TabView: UICollectionViewDelegateFlowLayout {
 
-    internal func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 
         if let size = cachedCellSizes[indexPath] {
             return size
         }
-
+        let cellForSize = TabCollectionCell()
         configureCell(cellForSize, indexPath: indexPath)
 
         let size = cellForSize.sizeThatFits(CGSizeMake(collectionView.bounds.width, option.tabHeight))
@@ -388,11 +427,11 @@ extension TabView: UICollectionViewDelegateFlowLayout {
         return size
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0.0
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0.0
     }
 }

@@ -8,37 +8,59 @@
 
 import UIKit
 
+@objc public protocol TabViewDataSource: NSObjectProtocol {
+    func tabViewItemCount(tabView: TabView) -> Int
+    func tabView(tabView: TabView, viewForIndexPath index: Int) -> TabTitleViewProtocol
+}
+
+@objc public protocol TabTitleViewProtocol: NSObjectProtocol {
+    func highlightTitle()
+    func unHighlightTitle()
+    func intrinsicContentSize() -> CGSize
+}
+
+
 public class TabPageViewController: UIPageViewController {
     public var isInfinity: Bool = false
     public var option: TabPageOption = TabPageOption()
-    public var tabItems: [(viewController: UIViewController, title: String)] = [] {
+
+    public var tabItems: [UIViewController] = [] {
         didSet {
             tabItemsCount = tabItems.count
         }
     }
+    public var tabViewDataSource: TabViewDataSource?
 
     var currentIndex: Int? {
         guard let viewController = viewControllers?.first else {
             return nil
         }
-        return tabItems.map{ $0.viewController }.indexOf(viewController)
+        return tabItems.indexOf(viewController)
     }
     private var beforeIndex: Int = 0
     private var tabItemsCount = 0
     private var defaultContentOffsetX: CGFloat {
         return self.view.bounds.width
     }
+
     private var shouldScrollCurrentBar: Bool = true
     lazy private var tabView: TabView = self.configuredTabView()
 
-    public static func create() -> TabPageViewController {
-        let sb = UIStoryboard(name: "TabPageViewController", bundle: NSBundle(forClass: TabPageViewController.self))
-        return sb.instantiateInitialViewController() as! TabPageViewController
-    }
 
+//    public static func create() -> TabPageViewController {
+//        let sb = UIStoryboard(name: "TabPageViewController", bundle: NSBundle(forClass: TabPageViewController.self))
+//        return sb.instantiateInitialViewController() as! TabPageViewController
+//    }
+    override init(transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation, options: [String : AnyObject]?) {
+        super.init(transitionStyle: .Scroll, navigationOrientation:.Horizontal, options: options)
+    }
+    
+    public required convenience init?(coder: NSCoder) {
+        self.init(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
-
         setupPageViewController()
         setupScrollView()
         updateNavigationBar()
@@ -79,7 +101,7 @@ public extension TabPageViewController {
 
         beforeIndex = index
         shouldScrollCurrentBar = false
-        let nextViewControllers: [UIViewController] = [tabItems[index].viewController]
+        let nextViewControllers: [UIViewController] = [tabItems[index]]
 
         let completion: (Bool -> Void) = { [weak self] _ in
             self?.shouldScrollCurrentBar = true
@@ -104,7 +126,7 @@ extension TabPageViewController {
         delegate = self
         automaticallyAdjustsScrollViewInsets = false
 
-        setViewControllers([tabItems[beforeIndex].viewController],
+        setViewControllers([tabItems[beforeIndex]],
             direction: .Forward,
             animated: false,
             completion: nil)
@@ -169,7 +191,7 @@ extension TabPageViewController {
 
         view.addConstraints([top, left, right])
 
-        tabView.pageTabItems = tabItems.map({ $0.title})
+        tabView.dataSource = self.tabViewDataSource
         tabView.updateCurrentIndex(beforeIndex, shouldScroll: true)
 
         tabView.pageItemPressedBlock = { [weak self] (index: Int, direction: UIPageViewControllerNavigationDirection) in
@@ -184,10 +206,10 @@ extension TabPageViewController {
 // MARK: - UIPageViewControllerDataSource
 
 extension TabPageViewController: UIPageViewControllerDataSource {
-    
+
     private func nextViewController(viewController: UIViewController, isAfter: Bool) -> UIViewController? {
 
-        guard var index = tabItems.map({$0.viewController}).indexOf(viewController) else {
+        guard var index = tabItems.indexOf(viewController) else {
             return nil
         }
 
@@ -206,7 +228,7 @@ extension TabPageViewController: UIPageViewControllerDataSource {
         }
 
         if index >= 0 && index < tabItems.count {
-            return tabItems[index].viewController
+            return tabItems[index]
         }
         return nil
     }

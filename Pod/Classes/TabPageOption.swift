@@ -19,6 +19,7 @@ public struct TabPageOption {
     public var tabHeight: CGFloat = 32.0
     public var tabMargin: CGFloat = 20.0
     public var tabWidth: CGFloat?
+    public var currentBarHeight: CGFloat = 2.0
     public var tabBackgroundColor: UIColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.95)
     public var pageBackgoundColor: UIColor = UIColor.whiteColor()
      internal var tabBackgroundImage: UIImage {
@@ -26,9 +27,9 @@ public struct TabPageOption {
     }
 
     private func convertImage() -> UIImage {
-        let rect : CGRect = CGRectMake(0, 0, 1, 1)
+        let rect: CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
-        let context : CGContextRef? = UIGraphicsGetCurrentContext()
+        let context: CGContextRef? = UIGraphicsGetCurrentContext()
         CGContextSetFillColorWithColor(context, tabBackgroundColor.CGColor)
         CGContextFillRect(context, rect)
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()

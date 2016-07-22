@@ -22,12 +22,13 @@ class ViewController: UIViewController {
     }
 
     @IBAction func LimitedButton(button: UIButton) {
-        let tc = TabPageViewController.create()
+        let tc = TabPageViewController()
         let vc1 = UIViewController()
         vc1.view.backgroundColor = UIColor.whiteColor()
         let vc2 = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ListViewController")
-        tc.tabItems = [(vc1, "First"), (vc2, "Second")]
+        tc.tabItems = [vc1, vc2]
         tc.displayControllerWithIndex(1, direction: .Forward, animated: false)
+        tc.tabViewDataSource = self
         var option = TabPageOption()
         option.tabWidth = view.frame.width / CGFloat(tc.tabItems.count)
         tc.option = option
@@ -35,7 +36,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func InfinityButton(button: UIButton) {
-        let tc = TabPageViewController.create()
+        let tc = TabPageViewController()
         let vc1 = UIViewController()
         vc1.view.backgroundColor = UIColor(red: 251/255, green: 252/255, blue: 149/255, alpha: 1.0)
         let vc2 = UIViewController()
@@ -46,8 +47,9 @@ class ViewController: UIViewController {
         vc4.view.backgroundColor = UIColor(red: 149/255, green: 252/255, blue: 197/255, alpha: 1.0)
         let vc5 = UIViewController()
         vc5.view.backgroundColor = UIColor(red: 252/255, green: 182/255, blue: 106/255, alpha: 1.0)
-        tc.tabItems = [(vc1, "Mon."), (vc2, "Tue."), (vc3, "Wed."), (vc4, "Thu."), (vc5, "Fri.")]
+        tc.tabItems = [vc1, vc2, vc3, vc4, vc5]
         tc.isInfinity = true
+        tc.tabViewDataSource = self
         let nc = UINavigationController()
         nc.viewControllers = [tc]
         var option = TabPageOption()
@@ -56,4 +58,18 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(tc, animated: true)
     }
 }
-
+extension ViewController: TabViewDataSource {
+    func tabViewItemCount(tabView: TabView) -> Int {
+        return 5
+    }
+    
+    func tabView(tabView: TabView, viewForIndexPath index: Int) -> TabTitleViewProtocol {
+        let tabTitleLabel = TabTitleLabel()
+        tabTitleLabel.text = "label\(index)"
+        if index & 2 == 0 {
+            tabTitleLabel.text = "label\(index) asd fasdf"
+        }
+        tabTitleLabel.textAlignment = .Center
+        return tabTitleLabel
+    }
+}
