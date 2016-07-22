@@ -381,29 +381,13 @@ extension TabView: UICollectionViewDelegate {
             shouldScrollToItem = false
         }
     }
-//    public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>){
-//        //This is the index of the "page" that we will be landing at
-//        let nearestIndex = Int(CGFloat(targetContentOffset.memory.x) / scrollView.bounds.size.width + 0.5)
-//
-//        //Just to make sure we don't scroll past your content
-//        let clampedIndex = max( min( nearestIndex, pageTabItemsCount - 1 ), 0 )
-//
-//        //This is the actual x position in the scroll view
-//        var xOffset = CGFloat(clampedIndex) * scrollView.bounds.size.width
-//
-//        //I've found that scroll views will "stick" unless this is done
-//        xOffset = xOffset == 0.0 ? 1.0 : xOffset
-//
-//        //Tell the scroll view to land on our page
-//        targetContentOffset.memory.x = xOffset
-//    }
+
     public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
             var offset = collectionView.contentOffset
+            offset.x = offset.x + collectionView.center.x
             let indexPath = self.collectionView.indexPathForItemAtPoint(offset)
-           let indexPath = NSIndexPath(forItem: currentIndex, inSection: 0)
-            //moveCurrentBarView(indexPath!, animated: true, shouldScroll: true)
-        }
+            print("\(indexPath)")
+
     }
 
 }
