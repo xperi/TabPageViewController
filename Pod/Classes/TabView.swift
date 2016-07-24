@@ -301,7 +301,6 @@ extension TabView: UICollectionViewDataSource {
 
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell = TabCollectionCell()
-
         if var tabCollectionCell = collectionView.dequeueReusableCellWithReuseIdentifier(TabCollectionCell.cellIdentifier(), forIndexPath: indexPath) as? TabCollectionCell {
             cell = tabCollectionCell
         }
@@ -313,6 +312,10 @@ extension TabView: UICollectionViewDataSource {
         let fixedIndex = isInfinity ? indexPath.item % pageTabItemsCount : indexPath.item
         cell.titleItem = self.dataSource?.tabView(self, viewForIndexPath: fixedIndex)
         cell.option = option
+        cell.itemContainer.subviews.forEach({
+            if let label = $0 as? UILabel {
+                label.text = "\(fixedIndex)-\(indexPath.item)"
+            }})
         cell.isCurrent = fixedIndex == (currentIndex % pageTabItemsCount)
         cell.tabItemButtonPressedBlock = { [weak self, weak cell] in
             var direction: UIPageViewControllerNavigationDirection = .Forward
@@ -355,15 +358,40 @@ extension TabView: UICollectionViewDelegate {
         guard isInfinity else {
             return
         }
-
         if pageTabItemsWidth == 0.0 {
             pageTabItemsWidth = floor(scrollView.contentSize.width / 3.0)
         }
 
         if (scrollView.contentOffset.x <= 0.0) || (scrollView.contentOffset.x > pageTabItemsWidth * 2.0) {
+            print("scrollViewDidScroll scroll move" )
             scrollView.contentOffset.x = pageTabItemsWidth
         }
+        var offset = scrollView.contentOffset
+        offset.x = offset.x + scrollView.frame.width / 2
+        
+        if let indexPath = self.collectionView.indexPathForItemAtPoint(offset) {
+            let fixedIndex = isInfinity ? indexPath.item % pageTabItemsCount : indexPath.item
+            print("\(fixedIndex)-\(indexPath.item)")
+            
+            if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? TabCollectionCell {
+                currentBarView.hidden = false
+                cell.isCurrent = true
+                
+                cell.hideCurrentBarView()
+                currentBarViewWidthConstraint.constant = cell.frame.width
+                if !isInfinity {
+                    currentBarViewLeftConstraint?.constant = cell.frame.origin.x
+                }
+                if !self.isInfinity {
+                    self.updateCollectionViewUserInteractionEnabled(true)
+                }
+                
+            }
+            beforeIndex = currentIndex
 
+        }
+        
+        
     }
 
     public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
@@ -375,6 +403,7 @@ extension TabView: UICollectionViewDelegate {
         }
 
         let indexPath = NSIndexPath(forItem: currentIndex, inSection: 0)
+        print("\(indexPath)")
         if shouldScrollToItem && isScrollToItemAble(indexPath) {
             // After the moved so as not to sense of incongruity, to adjust the contentOffset at the currentIndex
             collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: false)
@@ -386,10 +415,14 @@ extension TabView: UICollectionViewDelegate {
             var offset = collectionView.contentOffset
             offset.x = offset.x + collectionView.center.x
             let indexPath = self.collectionView.indexPathForItemAtPoint(offset)
-            print("\(indexPath)")
+            //print("\(indexPath)")
+        print("scrollViewDidEndDragging")
 
     }
-
+    
+    public func scrollViewDidEndDecelerating(scrollView: UIScrollView){
+        print("scrollViewDidEndDecelerating")
+    }
 }
 
 

@@ -423,6 +423,14 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					0D3CB95E1FFF2077688899DBE4DA5568 = {
+						DevelopmentTeam = BJ3W597VJX;
+					};
+					A925D391817E8338B1F81783BED52B34 = {
+						DevelopmentTeam = YHM9XQ2YL3;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -528,6 +536,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B8BADE4D6BA9B936A6892231E33129BA /* TabPageViewController-iOS8.0.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -545,6 +554,7 @@
 				MODULEMAP_FILE = "Target Support Files/TabPageViewController-iOS8.0/TabPageViewController-iOS8.0.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = TabPageViewController;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -591,6 +601,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8579AAD5F3F404CE3B031A6976BEFD5 /* TabPageViewController-iOS8.3.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -608,6 +619,7 @@
 				MODULEMAP_FILE = "Target Support Files/TabPageViewController-iOS8.3/TabPageViewController-iOS8.3.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = TabPageViewController;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -620,6 +632,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8579AAD5F3F404CE3B031A6976BEFD5 /* TabPageViewController-iOS8.3.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -637,6 +650,7 @@
 				MODULEMAP_FILE = "Target Support Files/TabPageViewController-iOS8.3/TabPageViewController-iOS8.3.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = TabPageViewController;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -650,6 +664,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B8BADE4D6BA9B936A6892231E33129BA /* TabPageViewController-iOS8.0.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -667,6 +682,7 @@
 				MODULEMAP_FILE = "Target Support Files/TabPageViewController-iOS8.0/TabPageViewController-iOS8.0.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = TabPageViewController;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -722,6 +738,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4B37FC5A1FFAA5F310628F828B7743B /* Pods-TabPageViewController_Example.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -755,6 +772,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8F1C1151598D0C791AB86FBC878D55FD /* Pods-TabPageViewController_Example.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;

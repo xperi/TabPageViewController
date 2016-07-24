@@ -9,7 +9,7 @@
 import UIKit
 
 class TabCollectionCell: UICollectionViewCell {
-    private var itemContainer =  UIView()
+    public var itemContainer =  UIView()
     private var currentBarView = UIView()
     private var touchButton = UIButton()
     var tabItemButtonPressedBlock: (Void -> Void)?
