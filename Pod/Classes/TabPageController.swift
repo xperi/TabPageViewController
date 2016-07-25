@@ -46,12 +46,12 @@ public class TabPageViewController: UIPageViewController {
     private var shouldScrollCurrentBar: Bool = true
     lazy private var tabView: TabView = self.configuredTabView()
     
-    public init(style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation) {
-        super.init(transitionStyle: .Scroll, navigationOrientation:.Horizontal, options: nil)
+    public override init(transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation, options: [String : AnyObject]?) {
+        super.init(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: options)
     }
     
-    public required convenience init?(coder: NSCoder) {
-        self.init(style: .Scroll, navigationOrientation: .Horizontal)
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
     override public func viewDidLoad() {
