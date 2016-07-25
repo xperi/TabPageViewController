@@ -9,8 +9,7 @@
 import UIKit
 
 public class TabTitleLabel: UILabel, TabTitleViewProtocol {
-    public var option: TabPageOption?
-    public func highlightTitle() {
+    public func highlightTitle(option: TabPageOption?) {
         self.textColor = option?.currentColor
         if let fontSize = option?.fontSize {
             self.font = UIFont.boldSystemFontOfSize(fontSize)
@@ -18,7 +17,7 @@ public class TabTitleLabel: UILabel, TabTitleViewProtocol {
 
     }
 
-    public func unHighlightTitle() {
+    public func unHighlightTitle(option: TabPageOption?) {
         self.textColor = option?.defaultColor
         if let fontSize = option?.fontSize {
             self.font = UIFont.boldSystemFontOfSize(fontSize)

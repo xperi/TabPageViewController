@@ -19,16 +19,11 @@ class TabCollectionCell: UICollectionViewCell {
 
             if let titleItem = self.titleItem as? UIView {
                 if titleItem is TabTitleViewProtocol {
-                    titleItem.backgroundColor = UIColor.redColor()
                     titleItem.sizeToFit()
                     itemContainer.subviews.forEach({ $0.removeFromSuperview() })
                     itemContainer.addSubview(titleItem)
                     itemContainer.frame = titleItem.frame
-                } else {
-                    print("error")
                 }
-            } else {
-                print("error")
             }
 
         }
@@ -43,7 +38,6 @@ class TabCollectionCell: UICollectionViewCell {
                 unHighlightTitle()
             }
             currentBarView.backgroundColor = option.currentColor
-            currentBarView.backgroundColor = UIColor.brownColor()
             layoutIfNeeded()
         }
     }
@@ -53,7 +47,6 @@ class TabCollectionCell: UICollectionViewCell {
         self.contentView.backgroundColor = UIColor.blackColor()
         currentBarView.hidden = true
         touchButton.addTarget(self, action: #selector(TabCollectionCell.tabItemTouchUpInside(_:)), forControlEvents: .TouchUpInside)
-        itemContainer.backgroundColor = UIColor.greenColor()
         self.contentView.addSubview(itemContainer)
         self.contentView.addSubview(currentBarView)
         self.contentView.addSubview(touchButton)
@@ -98,7 +91,7 @@ extension TabCollectionCell {
         itemContainer.subviews.forEach({ $0.frame.size = size })
         touchButton.frame.size = size
         currentBarView.frame = CGRect(x: 0, y: size.height - option.currentBarHeight, width: width, height: option.currentBarHeight)
-        
+
         return size
     }
 
@@ -110,11 +103,11 @@ extension TabCollectionCell {
         currentBarView.hidden = false
     }
     func highlightTitle() {
-        titleItem?.highlightTitle()
+        titleItem?.highlightTitle(option)
     }
 
     func unHighlightTitle() {
-        titleItem?.unHighlightTitle()
+        titleItem?.unHighlightTitle(option)
     }
 }
 

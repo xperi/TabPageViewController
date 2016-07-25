@@ -8,14 +8,14 @@
 
 import UIKit
 
-@objc public protocol TabViewDataSource: NSObjectProtocol {
+public protocol TabViewDataSource: NSObjectProtocol {
     func tabViewItemCount(tabView: TabView) -> Int
     func tabView(tabView: TabView, viewForIndexPath index: Int) -> TabTitleViewProtocol
 }
 
-@objc public protocol TabTitleViewProtocol: NSObjectProtocol {
-    func highlightTitle()
-    func unHighlightTitle()
+public protocol TabTitleViewProtocol: NSObjectProtocol {
+    func highlightTitle(option: TabPageOption?)
+    func unHighlightTitle(option: TabPageOption?)
     func intrinsicContentSize() -> CGSize
 }
 
@@ -54,11 +54,11 @@ public class TabPageViewController: UIPageViewController {
     override init(transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation, options: [String : AnyObject]?) {
         super.init(transitionStyle: .Scroll, navigationOrientation:.Horizontal, options: options)
     }
-    
+
     public required convenience init?(coder: NSCoder) {
         self.init(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     }
-    
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupPageViewController()
@@ -138,6 +138,7 @@ extension TabPageViewController {
         scrollView?.scrollsToTop = false
         scrollView?.delegate = self
         scrollView?.backgroundColor = option.pageBackgoundColor
+        
     }
 
     /**
