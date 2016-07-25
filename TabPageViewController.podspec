@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "TabPageViewController"
-  s.version          = "0.2.0"
+  s.version          = "0.2.1"
   s.summary          = "Custom UIPageViewController"
 
 # This description is used to generate tags and improve search results.
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "EndouMari" => "endo@vasily.jp" }
-  s.source           = { :git => "https://github.com/EndouMari/TabPageViewController.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/xperi/TabPageViewController.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
