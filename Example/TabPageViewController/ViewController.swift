@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func LimitedButton(button: UIButton) {
-        let tc = TabPageViewController()
+        let tc = TabPageViewController(style: .Scroll, navigationOrientation: .Horizontal)
         let vc1 = UIViewController()
         vc1.view.backgroundColor = UIColor(red: 251/255, green: 252/255, blue: 149/255, alpha: 1.0)
         let vc2 = UIViewController()
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func InfinityButton(button: UIButton) {
-        let tc = TabPageViewController()
+        let tc = TabPageViewController(style: .Scroll, navigationOrientation: .Horizontal)
         let vc1 = UIViewController()
         vc1.view.backgroundColor = UIColor(red: 251/255, green: 252/255, blue: 149/255, alpha: 1.0)
         let vc2 = UIViewController()
