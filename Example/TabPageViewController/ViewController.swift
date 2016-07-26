@@ -63,7 +63,7 @@ class ViewController: UIViewController {
 extension ViewController: TabViewDataSource {
     func tabViewItemCount(tabView: TabView) -> Int {
         if !tabView.isInfinity {
-            return 3
+            return 2
         }
         return 5
     }

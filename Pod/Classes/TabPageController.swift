@@ -23,7 +23,6 @@ public protocol TabTitleViewProtocol: NSObjectProtocol {
 public class TabPageViewController: UIPageViewController {
     public var isInfinity: Bool = false
     public var option: TabPageOption = TabPageOption()
-
     public var tabItems: [UIViewController] = [] {
         didSet {
             tabItemsCount = tabItems.count
@@ -38,7 +37,7 @@ public class TabPageViewController: UIPageViewController {
         return tabItems.indexOf(viewController)
     }
     private var beforeIndex: Int = 0
-    private var tabItemsCount = 0
+    private var tabItemsCount: Int = 0
     private var defaultContentOffsetX: CGFloat {
         return self.view.bounds.width
     }
