@@ -45,7 +45,7 @@ class TabCollectionCell: UICollectionViewCell {
 
     init() {
         super.init(frame: CGRect.zero)
-        self.contentView.backgroundColor = UIColor.blackColor()
+        self.contentView.backgroundColor = option.tabBackgroundColor
         currentBarView.hidden = true
         touchButton.addTarget(self, action: #selector(TabCollectionCell.tabItemTouchUpInside(_:)), forControlEvents: .TouchUpInside)
         self.contentView.addSubview(itemContainer)
