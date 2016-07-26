@@ -15,7 +15,8 @@ public class TabView: UIView {
     public weak var dataSource: TabViewDataSource? = nil {
         didSet {
             pageTabItemsCount = dataSource?.tabViewItemCount(self) ?? 0
-            beforeIndex = dataSource?.tabViewItemCount(self) ?? 0
+            let tabViewItemCount =  dataSource?.tabViewItemCount(self) ?? 0
+            beforeIndex = tabViewItemCount - 1
         }
     }
 
@@ -102,14 +103,14 @@ extension TabView {
      */
     func scrollCurrentBarView(index: Int, contentOffsetX: CGFloat) {
         var nextIndex = isInfinity ? index + pageTabItemsCount : index
-        if isInfinity && index == 0 && (beforeIndex - pageTabItemsCount) == pageTabItemsCount - 1 {
+        if isInfinity && index == 0 && (beforeIndex - pageTabItemsCount) == pageTabItemsCount - 2 {
             // Calculate the index at the time of transition to the first item from the last item of pageTabItems
             nextIndex = pageTabItemsCount * 2
-        } else if isInfinity && (index == pageTabItemsCount - 1) && (beforeIndex - pageTabItemsCount) == 0 {
+        } else if isInfinity && (index == pageTabItemsCount - 1) && (beforeIndex - pageTabItemsCount) == -1 {
             // Calculate the index at the time of transition from the first item of pageTabItems to the last item
             nextIndex = pageTabItemsCount - 1
         }
-        print("scrollCurrentBarView \(nextIndex)")
+        
         if collectionViewContentOffsetX == 0.0 {
             collectionViewContentOffsetX = collectionView.contentOffset.x
         }
@@ -120,7 +121,6 @@ extension TabView {
 
             let distance = (currentCell.frame.width / 2.0) + (nextCell.frame.width / 2.0)
             let scrollRate = contentOffsetX / frame.width
-
             let width = fabs(scrollRate) * (nextCell.frame.width - currentCell.frame.width)
             if isInfinity {
                 let scroll = scrollRate * distance
@@ -190,11 +190,10 @@ extension TabView {
             currentBarViewWidth = 0.0
             updateCollectionViewUserInteractionEnabled(true)
         }
-        if !isInfinity {
-            if let currentCell = self.collectionView.cellForItemAtIndexPath(indexPath) as? TabCollectionCell {
+        if let currentCell = self.collectionView.cellForItemAtIndexPath(indexPath) as? TabCollectionCell {
                 currentCell.isCurrent = true
-            }
         }
+        
         
     }
     
@@ -206,6 +205,7 @@ extension TabView {
 
             let fixedIndex = isInfinity ? indexPath.item % pageTabItemsCount : indexPath.item
             var direction: UIPageViewControllerNavigationDirection = .Forward
+            
 
             if isInfinity && fixedIndex == 0 && (beforeIndex - pageTabItemsCount) == pageTabItemsCount - 1 {
                 direction = .Forward
@@ -269,10 +269,6 @@ extension TabView: UICollectionViewDataSource {
         let fixedIndex = isInfinity ? indexPath.item % pageTabItemsCount : indexPath.item
         cell.titleItem = self.dataSource?.tabView(self, viewForIndexPath: fixedIndex)
         cell.option = option
-        cell.itemContainer.subviews.forEach({
-            if let label = $0 as? UILabel {
-                //label.text = "\(fixedIndex)-\(indexPath.item)"
-            }})
         cell.isCurrent = fixedIndex == (currentIndex % pageTabItemsCount)
         cell.tabItemButtonPressedBlock = { [weak self, weak cell] in
             var direction: UIPageViewControllerNavigationDirection = .Forward
@@ -317,14 +313,13 @@ extension TabView: UICollectionViewDelegate {
         }
         var offset = scrollView.contentOffset
         offset.x = offset.x + scrollView.frame.width / 2
+        beforeIndex = currentIndex - 1
         if let nextIndexPath = self.collectionView.indexPathForItemAtPoint(offset) {
             let nextIndex = isInfinity ? nextIndexPath.item % pageTabItemsCount : nextIndexPath.item
 
             if let nextCell = collectionView.cellForItemAtIndexPath(nextIndexPath) as? TabCollectionCell {
                 deselectVisibleCells()
                 nextCell.isCurrent = true
-                nextCell.showCurrentBarView()
-
             }
             let newCurrentIndex = isInfinity ? nextIndex + pageTabItemsCount : nextIndex
             if newCurrentIndex != currentIndex {
@@ -332,7 +327,6 @@ extension TabView: UICollectionViewDelegate {
                 currentIndex = newCurrentIndex
             }
         }
-
     }
 
     public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {

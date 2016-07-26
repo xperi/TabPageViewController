@@ -1,6 +1,6 @@
 {
   "name": "TabPageViewController",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "summary": "Custom UIPageViewController",
   "description": "UIPageViewController and Tab",
   "homepage": "https://github.com/EndouMari/TabPageViewController",
@@ -9,8 +9,8 @@
     "EndouMari": "endo@vasily.jp"
   },
   "source": {
-    "git": "https://github.com/EndouMari/TabPageViewController.git",
-    "tag": "0.2.0"
+    "git": "https://github.com/xperi/TabPageViewController.git",
+    "tag": "0.2.1"
   },
   "platforms": {
     "ios": "8.0"
