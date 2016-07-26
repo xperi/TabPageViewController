@@ -150,6 +150,9 @@ extension TabView {
      - parameter index: Next Index
      */
     func updateCurrentIndex(index: Int, shouldScroll: Bool) {
+        if !isInfinity {
+            deselectVisibleCells()
+        }
         currentIndex = isInfinity ? index + pageTabItemsCount : index
 
         let indexPath = NSIndexPath(forItem: currentIndex, inSection: 0)
@@ -162,6 +165,10 @@ extension TabView {
      - parameter index: Next IndexPath√
      */
     private func updateCurrentIndexForTap(index: Int) {
+        if !isInfinity {
+            deselectVisibleCells()
+        }
+        
         if isInfinity && (index < pageTabItemsCount) || (index >= pageTabItemsCount * 2) {
             currentIndex = (index < pageTabItemsCount) ? index + pageTabItemsCount : index - pageTabItemsCount
             shouldScrollToItem = true

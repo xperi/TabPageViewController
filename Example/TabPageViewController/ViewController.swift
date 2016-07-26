@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         vc2.view.backgroundColor = UIColor(red: 252/255, green: 150/255, blue: 149/255, alpha: 1.0)
         let vc3 = UIViewController()
         vc3.view.backgroundColor = UIColor(red: 149/255, green: 218/255, blue: 252/255, alpha: 1.0)
-        tc.tabItems = [vc1, vc2, vc3]
+        tc.tabItems = [vc1, vc2]
         tc.displayControllerWithIndex(0, direction: .Forward, animated: false)
         tc.tabViewDataSource = self
         var option = TabPageOption()
