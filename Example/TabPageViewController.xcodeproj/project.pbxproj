@@ -16,6 +16,8 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		85380DA4C55394D6568F542E /* Pods_TabPageViewController_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0925AE92E1138099A3D6D8 /* Pods_TabPageViewController_Tests.framework */; };
+		B349FB9C1D483A7600AC36E3 /* InfinityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B349FB9B1D483A7600AC36E3 /* InfinityTabViewController.swift */; };
+		B349FB9E1D484E2D00AC36E3 /* LimitedTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B349FB9D1D484E2D00AC36E3 /* LimitedTabViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		875E88B88077E92C304A9679 /* TabPageViewController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TabPageViewController.podspec; path = ../TabPageViewController.podspec; sourceTree = "<group>"; };
 		98BAEE8DC1B69CD50B7166B4 /* Pods_TabPageViewController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TabPageViewController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B349FB9B1D483A7600AC36E3 /* InfinityTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfinityTabViewController.swift; sourceTree = "<group>"; };
+		B349FB9D1D484E2D00AC36E3 /* LimitedTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LimitedTabViewController.swift; sourceTree = "<group>"; };
 		C17EDC63008D44833EB47C92 /* Pods-TabPageViewController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabPageViewController_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TabPageViewController_Tests/Pods-TabPageViewController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		F9A820C7198AE00EDA215606 /* Pods-TabPageViewController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabPageViewController_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-TabPageViewController_Example/Pods-TabPageViewController_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +113,8 @@
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				4C3A423B1CA274A600E7C149 /* ListViewController.swift */,
+				B349FB9D1D484E2D00AC36E3 /* LimitedTabViewController.swift */,
+				B349FB9B1D483A7600AC36E3 /* InfinityTabViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -364,6 +370,8 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				B349FB9C1D483A7600AC36E3 /* InfinityTabViewController.swift in Sources */,
+				B349FB9E1D484E2D00AC36E3 /* LimitedTabViewController.swift in Sources */,
 				4C3A423C1CA274A600E7C149 /* ListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

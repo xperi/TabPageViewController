@@ -88,6 +88,11 @@ public class TabView: UIView {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+
+    public func reloadData() {
+        collectionView.reloadData()
+        scrollToHorizontalCenter()
+    }
 }
 
 
@@ -168,10 +173,10 @@ extension TabView {
         if !isInfinity {
             deselectVisibleCells()
         }
-        
+        shouldScrollToItem = true
         if isInfinity && (index < pageTabItemsCount) || (index >= pageTabItemsCount * 2) {
             currentIndex = (index < pageTabItemsCount) ? index + pageTabItemsCount : index - pageTabItemsCount
-            shouldScrollToItem = true
+
         } else {
             currentIndex = index
         }
@@ -195,8 +200,9 @@ extension TabView {
             currentBarViewWidth = 0.0
             updateCollectionViewUserInteractionEnabled(true)
         }
+        deselectVisibleCells()
         if let currentCell = self.collectionView.cellForItemAtIndexPath(indexPath) as? TabCollectionCell {
-                currentCell.isCurrent = true
+            currentCell.isCurrent = true
         }
 
 
@@ -304,6 +310,9 @@ extension TabView: UICollectionViewDataSource {
 extension TabView: UICollectionViewDelegate {
 
     public func scrollViewDidScroll(scrollView: UIScrollView) {
+        if shouldScrollToItem {
+            return
+        }
 
         guard isInfinity else {
             return
@@ -321,8 +330,9 @@ extension TabView: UICollectionViewDelegate {
             let nextIndex = isInfinity ? nextIndexPath.item % pageTabItemsCount : nextIndexPath.item
 
             if let nextCell = collectionView.cellForItemAtIndexPath(nextIndexPath) as? TabCollectionCell {
-                deselectVisibleCells()
-                nextCell.isCurrent = true
+                //deselectVisibleCells()
+                //nextCell.isCurrent = true
+                moveCurrentBarView(nextIndexPath, animated: false, shouldScroll: false)
             }
             let newCurrentIndex = isInfinity ? nextIndex + pageTabItemsCount : nextIndex
             if newCurrentIndex != currentIndex {
