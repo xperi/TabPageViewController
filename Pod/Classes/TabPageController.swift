@@ -29,7 +29,12 @@ public class TabPageViewController: UIPageViewController {
         }
     }
     public var tabViewDataSource: TabViewDataSource?
-
+    public var tabPageScrollEnable = true {
+        didSet {
+            let scrollView = view.subviews.flatMap { $0 as? UIScrollView }.first
+            scrollView?.scrollEnabled = tabPageScrollEnable
+        }
+    }
     var currentIndex: Int? {
         guard let viewController = viewControllers?.first else {
             return nil
@@ -144,7 +149,6 @@ extension TabPageViewController {
         scrollView?.scrollsToTop = false
         scrollView?.delegate = self
         scrollView?.backgroundColor = option.pageBackgoundColor
-
     }
 
     /**
