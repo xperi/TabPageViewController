@@ -35,7 +35,7 @@ public class TabPageViewController: UIPageViewController {
             scrollView?.scrollEnabled = tabPageScrollEnable
         }
     }
-    var currentIndex: Int? {
+    public var currentIndex: Int? {
         guard let viewController = viewControllers?.first else {
             return nil
         }
@@ -94,7 +94,7 @@ public class TabPageViewController: UIPageViewController {
 
 public extension TabPageViewController {
 
-    public func displayControllerWithIndex(index: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool) {
+    public func displayControllerWithIndex(index: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool, didComplete: (Void -> Void)? = nil) {
 
         beforeIndex = index
         shouldScrollCurrentBar = false
@@ -103,6 +103,7 @@ public extension TabPageViewController {
         let completion: (Bool -> Void) = { [weak self] _ in
             self?.shouldScrollCurrentBar = true
             self?.beforeIndex = index
+            didComplete?()
         }
 
         setViewControllers(
@@ -122,6 +123,9 @@ public extension TabPageViewController {
 
     }
 
+    public func updateTabViewIndex() {
+        tabView.updateCurrentIndex(beforeIndex, shouldScroll: true)
+    }
 }
 
 
