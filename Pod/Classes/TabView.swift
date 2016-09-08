@@ -136,17 +136,17 @@ extension TabView {
         let currentIndexPath = NSIndexPath(forItem: (isJump && beforeIndex != fixedIndex ? beforeIndex : currentIndex), inSection: 0)
         let nextIndexPath = NSIndexPath(forItem: nextIndex, inSection: 0)
         if let currentCell = collectionView.cellForItemAtIndexPath(currentIndexPath) as? TabCollectionCell, nextCell = collectionView.cellForItemAtIndexPath(nextIndexPath) as? TabCollectionCell {
-            if self.option.currentBarAnaimation {
+            if self.option.currentBarAnimation {
                 nextCell.hideCurrentBarView()
                 currentCell.hideCurrentBarView()
                 currentBarView.hidden = false
-                
+
                 if currentBarViewWidth == 0.0 {
                     currentBarViewWidth = currentCell.frame.width
                 }
 
             }
-            
+
             let distance = (currentCell.frame.width / 2.0) + (nextCell.frame.width / 2.0)
             let scrollRate = contentOffsetX / frame.width
             let width = fabs(scrollRate) * (nextCell.frame.width - currentCell.frame.width)
@@ -159,11 +159,11 @@ extension TabView {
                 } else {
                     currentBarView.frame.origin.x = currentCell.frame.minX + nextCell.frame.width * scrollRate
                 }
-                
+
             }
             currentBarView.frame.size.width = currentBarViewWidth + width
-            
-            
+
+
         }
     }
 
@@ -233,14 +233,14 @@ extension TabView {
         }
         self.deselectVisibleCells()
         if let currentCell = self.collectionView.cellForItemAtIndexPath(indexPath) as? TabCollectionCell {
-            
+
             let completion: (Bool -> Void) = { [weak self] _ in
                 currentCell.isCurrent = true
                 currentCell.showCurrentBarView()
                 self?.currentBarView.hidden = true
             }
-            if animated && self.option.currentBarAnaimation {
-                UIView.animateWithDuration(self.option.currentBarAnaimationDuration, animations: {
+            if animated && self.option.currentBarAnimation {
+                UIView.animateWithDuration(self.option.currentBarAnimationDuration, animations: {
                     self.currentBarView.hidden = false
                     self.currentBarView.frame.origin.x = currentCell.frame.origin.x
                     self.currentBarView.frame.size.width = currentCell.frame.size.width
@@ -248,7 +248,7 @@ extension TabView {
             } else {
                 completion(true)
             }
-            
+
         }
 
 
