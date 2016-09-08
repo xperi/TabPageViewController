@@ -32,10 +32,8 @@ class TabCollectionCell: UICollectionViewCell {
     var isCurrent: Bool = false {
         didSet {
             if isCurrent {
-                showCurrentBarView()
                 highlightTitle()
             } else {
-                hideCurrentBarView()
                 unHighlightTitle()
             }
             currentBarView.backgroundColor = option.currentBarColor

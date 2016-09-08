@@ -207,7 +207,7 @@ extension TabPageViewController {
         view.addConstraints([top, left, right])
 
         tabView.dataSource = self.tabViewDataSource
-        tabView.updateCurrentIndex(beforeIndex, shouldScroll: true)
+        tabView.updateCurrentIndex(beforeIndex, animated: false, shouldScroll: true)
 
         tabView.pageItemPressedBlock = { [weak self] (index: Int, direction: UIPageViewControllerNavigationDirection) in
             self?.displayControllerWithIndex(index, direction: direction, animated: true)

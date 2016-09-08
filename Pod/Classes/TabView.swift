@@ -33,6 +33,7 @@ public class TabView: UIView {
 
     @IBOutlet var contentView: UIView!
     @IBOutlet private weak var collectionView: UICollectionView!
+    var currentBarView: UIView!
 
     init(isInfinity: Bool, option: TabPageOption) {
        super.init(frame: CGRect.zero)
@@ -83,6 +84,12 @@ public class TabView: UIView {
         collectionView.decelerationRate = UIScrollViewDecelerationRateFast
         collectionView.registerClass(TabCollectionCell.self, forCellWithReuseIdentifier: TabCollectionCell.cellIdentifier())
 
+        currentBarView = UIView()
+        currentBarView.frame.size.height = option.currentBarHeight
+        currentBarView.backgroundColor =  option.currentBarColor
+        currentBarView.hidden = true
+        collectionView.addSubview(currentBarView)
+
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -92,6 +99,10 @@ public class TabView: UIView {
     public func reloadData() {
         collectionView.reloadData()
         scrollToHorizontalCenter()
+    }
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        currentBarView.frame.origin.y = collectionView.frame.height - option.currentBarHeight
     }
 }
 
@@ -125,14 +136,34 @@ extension TabView {
         let currentIndexPath = NSIndexPath(forItem: (isJump && beforeIndex != fixedIndex ? beforeIndex : currentIndex), inSection: 0)
         let nextIndexPath = NSIndexPath(forItem: nextIndex, inSection: 0)
         if let currentCell = collectionView.cellForItemAtIndexPath(currentIndexPath) as? TabCollectionCell, nextCell = collectionView.cellForItemAtIndexPath(nextIndexPath) as? TabCollectionCell {
+            if self.option.currentBarAnaimation {
+                nextCell.hideCurrentBarView()
+                currentCell.hideCurrentBarView()
+                currentBarView.hidden = false
+                
+                if currentBarViewWidth == 0.0 {
+                    currentBarViewWidth = currentCell.frame.width
+                }
 
+            }
+            
             let distance = (currentCell.frame.width / 2.0) + (nextCell.frame.width / 2.0)
             let scrollRate = contentOffsetX / frame.width
             let width = fabs(scrollRate) * (nextCell.frame.width - currentCell.frame.width)
             if isInfinity {
                 let scroll = scrollRate * distance
                 collectionView.contentOffset.x = collectionViewContentOffsetX + scroll
+            } else {
+                if scrollRate > 0 {
+                    currentBarView.frame.origin.x = currentCell.frame.minX + scrollRate * currentCell.frame.width
+                } else {
+                    currentBarView.frame.origin.x = currentCell.frame.minX + nextCell.frame.width * scrollRate
+                }
+                
             }
+            currentBarView.frame.size.width = currentBarViewWidth + width
+            
+            
         }
     }
 
@@ -154,14 +185,14 @@ extension TabView {
 
      - parameter index: Next Index
      */
-    func updateCurrentIndex(index: Int, shouldScroll: Bool) {
+    func updateCurrentIndex(index: Int, animated: Bool? = nil, shouldScroll: Bool) {
         if !isInfinity {
             deselectVisibleCells()
         }
         currentIndex = isInfinity ? index + pageTabItemsCount : index
 
         let indexPath = NSIndexPath(forItem: currentIndex, inSection: 0)
-        moveCurrentBarView(indexPath, animated: !isInfinity, shouldScroll: shouldScroll)
+        moveCurrentBarView(indexPath, animated: animated ?? !isInfinity, shouldScroll: shouldScroll)
     }
 
     /**
@@ -200,9 +231,24 @@ extension TabView {
             currentBarViewWidth = 0.0
             updateCollectionViewUserInteractionEnabled(true)
         }
-        deselectVisibleCells()
+        self.deselectVisibleCells()
         if let currentCell = self.collectionView.cellForItemAtIndexPath(indexPath) as? TabCollectionCell {
-            currentCell.isCurrent = true
+            
+            let completion: (Bool -> Void) = { [weak self] _ in
+                currentCell.isCurrent = true
+                currentCell.showCurrentBarView()
+                self?.currentBarView.hidden = true
+            }
+            if animated && self.option.currentBarAnaimation {
+                UIView.animateWithDuration(self.option.currentBarAnaimationDuration, animations: {
+                    self.currentBarView.hidden = false
+                    self.currentBarView.frame.origin.x = currentCell.frame.origin.x
+                    self.currentBarView.frame.size.width = currentCell.frame.size.width
+                    }, completion: completion)
+            } else {
+                completion(true)
+            }
+            
         }
 
 
@@ -247,7 +293,7 @@ extension TabView {
         collectionView
             .visibleCells()
             .flatMap { $0 as? TabCollectionCell }
-            .forEach { $0.isCurrent = false }
+            .forEach { $0.isCurrent = false; $0.hideCurrentBarView()}
     }
 
     private func isScrollToItemAble(indexPath: NSIndexPath) -> Bool {
@@ -317,6 +363,7 @@ extension TabView: UICollectionViewDelegate {
         guard isInfinity else {
             return
         }
+
         if pageTabItemsWidth == 0.0 {
             pageTabItemsWidth = floor(scrollView.contentSize.width / 3.0)
         }
@@ -330,8 +377,6 @@ extension TabView: UICollectionViewDelegate {
             let nextIndex = isInfinity ? nextIndexPath.item % pageTabItemsCount : nextIndexPath.item
 
             if let nextCell = collectionView.cellForItemAtIndexPath(nextIndexPath) as? TabCollectionCell {
-                //deselectVisibleCells()
-                //nextCell.isCurrent = true
                 moveCurrentBarView(nextIndexPath, animated: false, shouldScroll: false)
             }
             let newCurrentIndex = isInfinity ? nextIndex + pageTabItemsCount : nextIndex

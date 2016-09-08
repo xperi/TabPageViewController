@@ -20,6 +20,7 @@ class LimitedTabViewController: UIViewController {
         tabController.option = setTabPageOption(tabController.tabItems.count)
         addChildViewController(tabController)
         self.view.addSubview(tabController.view)
+        loadData()
     }
 
     func setTabPageOption(tabItemsCount: Int) -> TabPageOption {
@@ -37,9 +38,11 @@ class LimitedTabViewController: UIViewController {
         vc1.view.backgroundColor = UIColor(red: 251/255, green: 252/255, blue: 149/255, alpha: 1.0)
         let vc2 = UIViewController()
         vc2.view.backgroundColor = UIColor(red: 252/255, green: 150/255, blue: 149/255, alpha: 1.0)
-        tabItems = [vc1, vc2]
+        let vc3 = UIViewController()
+        vc3.view.backgroundColor = UIColor(red: 252/255, green: 150/255, blue: 149/255, alpha: 1.0)
+        tabItems = [vc1, vc2, vc3]
         tabController.tabItems = tabItems
-        tabNames = ["vc1", "vc2"]
+        tabNames = ["vc1", "vc2", "vc3"]
         tabController.option = setTabPageOption(tabController.tabItems.count)
         tabController.reloadData()
         tabController.displayControllerWithIndex(0, direction: .Forward, animated: false)
