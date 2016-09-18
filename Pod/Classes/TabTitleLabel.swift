@@ -23,4 +23,11 @@ public class TabTitleLabel: UILabel, TabTitleViewProtocol {
             self.font = UIFont.boldSystemFontOfSize(fontSize)
         }
     }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        if let superViewBounds = self.superview?.bounds {
+            self.frame = superViewBounds
+        }
+    }
 }
