@@ -59,11 +59,6 @@ class TabCollectionCell: UICollectionViewCell {
         self.init()
     }
 
-    override func sizeThatFits(size: CGSize) -> CGSize {
-
-        return intrinsicContentSize()
-    }
-
     deinit {
         touchButton.removeTarget(self, action: #selector(TabCollectionCell.tabItemTouchUpInside(_:)), forControlEvents: .TouchUpInside)
     }
@@ -77,21 +72,22 @@ class TabCollectionCell: UICollectionViewCell {
 // MARK: - View
 
 extension TabCollectionCell {
-    override func intrinsicContentSize() -> CGSize {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         var width: CGFloat = 0.0
         if let tabWidth = option.tabWidth where tabWidth > 0.0 {
             width = tabWidth
         }
-
+        
         width = max(width, itemContainer.frame.width + option.tabMargin * 2)
-
+        
         let size = CGSizeMake(width, option.tabHeight)
         itemContainer.frame.size = size
         itemContainer.subviews.forEach({ $0.frame.size = size })
         touchButton.frame.size = size
         currentBarView.frame = CGRect(x: 0, y: size.height - option.currentBarHeight, width: width, height: option.currentBarHeight)
-
-        return size
+        
     }
 
     func hideCurrentBarView() {

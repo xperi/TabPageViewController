@@ -29,7 +29,6 @@ public class TabView: UIView {
     private var pageTabItemsWidth: CGFloat = 0.0
     private var collectionViewContentOffsetX: CGFloat = 0.0
     private var currentBarViewWidth: CGFloat = 0.0
-    private var cachedCellSizes: [NSIndexPath: CGSize] = [:]
 
     @IBOutlet var contentView: UIView!
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -424,16 +423,7 @@ extension TabView: UICollectionViewDelegateFlowLayout {
 
     public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
 
-        if let size = cachedCellSizes[indexPath] {
-            return size
-        }
-        let cellForSize = TabCollectionCell()
-        configureCell(cellForSize, indexPath: indexPath)
-
-        let size = cellForSize.sizeThatFits(CGSizeMake(collectionView.bounds.width, option.tabHeight))
-        cachedCellSizes[indexPath] = size
-
-        return size
+        return CGSizeMake(option.tabWidth ?? collectionView.bounds.width, option.tabHeight)
     }
 
     public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {

@@ -23,8 +23,4 @@ public class TabTitleLabel: UILabel, TabTitleViewProtocol {
             self.font = UIFont.boldSystemFontOfSize(fontSize)
         }
     }
-
-    public override func intrinsicContentSize() -> CGSize {
-        return super.intrinsicContentSize()
-    }
 }

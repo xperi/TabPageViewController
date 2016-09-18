@@ -16,7 +16,6 @@ public protocol TabViewDataSource: NSObjectProtocol {
 public protocol TabTitleViewProtocol: NSObjectProtocol {
     func highlightTitle(option: TabPageOption?)
     func unHighlightTitle(option: TabPageOption?)
-    func intrinsicContentSize() -> CGSize
 }
 
 

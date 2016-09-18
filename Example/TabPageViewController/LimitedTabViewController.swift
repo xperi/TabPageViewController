@@ -37,7 +37,7 @@ class LimitedTabViewController: UIViewController {
         let vc1 = UIViewController()
         vc1.view.backgroundColor = UIColor(red: 251/255, green: 252/255, blue: 149/255, alpha: 1.0)
         let vc2 = UIViewController()
-        vc2.view.backgroundColor = UIColor(red: 252/255, green: 150/255, blue: 149/255, alpha: 1.0)
+        vc2.view.backgroundColor = UIColor(red: 252/255, green: 120/255, blue: 149/255, alpha: 1.0)
         let vc3 = UIViewController()
         vc3.view.backgroundColor = UIColor(red: 252/255, green: 150/255, blue: 149/255, alpha: 1.0)
         tabItems = [vc1, vc2, vc3]
