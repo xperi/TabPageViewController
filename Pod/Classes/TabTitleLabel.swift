@@ -27,7 +27,7 @@ public class TabTitleLabel: UILabel, TabTitleViewProtocol {
     public override func layoutSubviews() {
         super.layoutSubviews()
         if let superViewBounds = self.superview?.bounds {
-            self.frame = superViewBounds
+            self.bounds = superViewBounds
         }
     }
 }

@@ -78,11 +78,9 @@ extension TabCollectionCell {
         if let tabWidth = option.tabWidth where tabWidth > 0.0 {
             width = tabWidth
         }
-        
-        width = max(width, itemContainer.frame.width + option.tabMargin * 2)
-        
         let size = CGSizeMake(width, option.tabHeight)
         itemContainer.frame.size = size
+        itemContainer.subviews.forEach({ $0.frame.size = size })
         touchButton.frame.size = size
         currentBarView.frame = CGRect(x: 0, y: size.height - option.currentBarHeight, width: width, height: option.currentBarHeight)
         
