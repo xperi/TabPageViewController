@@ -15,12 +15,21 @@ class LimitedTabViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let vc1 = UIViewController()
+        vc1.view.backgroundColor = UIColor(red: 251/255, green: 252/255, blue: 149/255, alpha: 1.0)
+        let vc2 = UIViewController()
+        vc2.view.backgroundColor = UIColor(red: 252/255, green: 120/255, blue: 149/255, alpha: 1.0)
+        let vc3 = UIViewController()
+        vc3.view.backgroundColor = UIColor(red: 252/255, green: 150/255, blue: 149/255, alpha: 1.0)
+        tabItems = [vc1, vc2, vc3]
+        tabNames = ["vc1", "vc2", "vc3"]
         tabController.tabItems = tabItems
-        tabController.tabViewDataSource = self
         tabController.option = setTabPageOption(tabController.tabItems.count)
+        tabController.tabViewDataSource = self
+        tabController.displayControllerWithIndex(0, direction: .Forward, animated: false)
         addChildViewController(tabController)
         self.view.addSubview(tabController.view)
-        loadData()
+
     }
 
     func setTabPageOption(tabItemsCount: Int) -> TabPageOption {
@@ -32,20 +41,7 @@ class LimitedTabViewController: UIViewController {
     }
 
     @IBAction func loadData() {
-        tabItems.removeAll()
-        tabNames.removeAll()
-        let vc1 = UIViewController()
-        vc1.view.backgroundColor = UIColor(red: 251/255, green: 252/255, blue: 149/255, alpha: 1.0)
-        let vc2 = UIViewController()
-        vc2.view.backgroundColor = UIColor(red: 252/255, green: 120/255, blue: 149/255, alpha: 1.0)
-        let vc3 = UIViewController()
-        vc3.view.backgroundColor = UIColor(red: 252/255, green: 150/255, blue: 149/255, alpha: 1.0)
-        tabItems = [vc1, vc2, vc3]
-        tabController.tabItems = tabItems
-        tabNames = ["vc1", "vc2", "vc3"]
-        tabController.option = setTabPageOption(tabController.tabItems.count)
-        tabController.reloadData()
-        tabController.displayControllerWithIndex(0, direction: .Forward, animated: false)
+
     }
 
 }

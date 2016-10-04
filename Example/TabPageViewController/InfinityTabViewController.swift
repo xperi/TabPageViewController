@@ -15,24 +15,6 @@ class InfinityTabViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-            tabController.tabItems = tabItems
-            tabController.tabViewDataSource = self
-            tabController.option = setTabPageOption(tabController.tabItems.count)
-            tabController.isInfinity = true
-            addChildViewController(tabController)
-            self.view.addSubview(tabController.view)
-    }
-
-    func setTabPageOption(tabItemsCount: Int) -> TabPageOption {
-        var option = TabPageOption()
-        option.tabHeight = 45
-        option.fontSize = 18
-        return option
-    }
-
-    @IBAction func loadData() {
-        tabItems.removeAll()
-        tabNames.removeAll()
         let vc1 = UIViewController()
         vc1.view.backgroundColor = UIColor(red: 251/255, green: 252/255, blue: 149/255, alpha: 1.0)
         let vc2 = UIViewController()
@@ -44,9 +26,27 @@ class InfinityTabViewController: UIViewController {
         let vc5 = UIViewController()
         vc5.view.backgroundColor = UIColor(red: 252/255, green: 182/255, blue: 106/255, alpha: 1.0)
         tabItems = [vc1, vc2, vc3, vc4, vc5]
-        tabController.tabItems = tabItems
         tabNames = ["vc1", "vc2", "vc3", "vc4", "vc5"]
-        tabController.reloadData()
+        tabController.tabItems = tabItems
+        tabController.option = setTabPageOption(tabController.tabItems.count)
+        tabController.tabViewDataSource = self
+        tabController.isInfinity = true
+        tabController.displayControllerWithIndex(0, direction: .Forward, animated: false)
+        addChildViewController(tabController)
+        self.view.addSubview(tabController.view)
+
+    }
+
+    func setTabPageOption(tabItemsCount: Int) -> TabPageOption {
+        var option = TabPageOption()
+        option.tabHeight = 45
+        option.fontSize = 18
+        option.tabWidth = view.frame.width / CGFloat(4)
+        return option
+    }
+
+    @IBAction func loadData() {
+
     }
 
 }

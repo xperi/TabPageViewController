@@ -19,7 +19,6 @@ class TabCollectionCell: UICollectionViewCell {
 
             if let titleItem = self.titleItem as? UIView {
                 if titleItem is TabTitleViewProtocol {
-                    titleItem.sizeToFit()
                     itemContainer.subviews.forEach({ $0.removeFromSuperview() })
                     itemContainer.addSubview(titleItem)
                 }
@@ -71,7 +70,7 @@ class TabCollectionCell: UICollectionViewCell {
 // MARK: - View
 
 extension TabCollectionCell {
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         var width: CGFloat = 0.0
@@ -80,10 +79,9 @@ extension TabCollectionCell {
         }
         let size = CGSizeMake(width, option.tabHeight)
         itemContainer.frame.size = size
-        itemContainer.subviews.forEach({ $0.frame.size = size })
         touchButton.frame.size = size
         currentBarView.frame = CGRect(x: 0, y: size.height - option.currentBarHeight, width: width, height: option.currentBarHeight)
-        
+
     }
 
     func hideCurrentBarView() {
