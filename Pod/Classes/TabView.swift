@@ -26,6 +26,7 @@ public class TabView: UIView {
     private var currentIndex: Int = 0
     private var pageTabItemsCount: Int = 0
     private var shouldScrollToItem: Bool = false
+    private var isMoveCurrentBarView: Bool = false
     private var pageTabItemsWidth: CGFloat = 0.0
     private var collectionViewContentOffsetX: CGFloat = 0.0
     private var currentBarViewWidth: CGFloat = 0.0
@@ -237,8 +238,10 @@ extension TabView {
                 currentCell.isCurrent = true
                 currentCell.showCurrentBarView()
                 self?.currentBarView.hidden = true
+                self?.isMoveCurrentBarView = false
             }
             if animated && self.option.currentBarAnimation {
+                self.isMoveCurrentBarView = true
                 UIView.animateWithDuration(self.option.currentBarAnimationDuration, animations: {
                     self.currentBarView.hidden = false
                     self.currentBarView.frame.origin.x = currentCell.frame.origin.x
@@ -326,6 +329,11 @@ extension TabView: UICollectionViewDataSource {
         cell.option = option
         cell.isCurrent = fixedIndex == (currentIndex % pageTabItemsCount)
         cell.tabItemButtonPressedBlock = { [weak self, weak cell] in
+
+            guard let isMoveCurrentBarView = self?.isMoveCurrentBarView where !isMoveCurrentBarView else {
+                return
+            }
+
             var direction: UIPageViewControllerNavigationDirection = .Forward
             if let pageTabItemsCount = self?.pageTabItemsCount, currentIndex = self?.currentIndex {
                 if self?.isInfinity == true {
