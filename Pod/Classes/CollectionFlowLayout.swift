@@ -24,7 +24,7 @@ enum ScrollDirection {
     }
 }
 
-public class CollectionFlowLayout: UICollectionViewFlowLayout {
+class CollectionFlowLayout: UICollectionViewFlowLayout {
     override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
 
         if let cv = self.collectionView {
@@ -81,11 +81,11 @@ public class CollectionFlowLayout: UICollectionViewFlowLayout {
 
                     if candidateAttributesCenterX <= halfWidth {
                         return CGPoint(x : 0, y : proposedContentOffset.y)
-                    } else if contentWidth <= proposedContentOffsetX + fullWidth {
-                        return CGPoint(x : contentWidth, y : proposedContentOffset.y)
+                    } else if candidateAttributesCenterX >= contentWidth - halfWidth || contentWidth <= proposedContentOffsetX + fullWidth {
+                        return CGPoint(x : contentWidth - fullWidth, y : proposedContentOffset.y)
                     }
 
-                    return CGPoint(x : candidateAttributes.center.x - halfWidth, y : proposedContentOffset.y)
+                    return CGPoint(x : candidateAttributesCenterX - halfWidth, y : proposedContentOffset.y)
                 }
 
             }
