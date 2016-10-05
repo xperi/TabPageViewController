@@ -24,6 +24,8 @@
 		99DCABC3B50BE9DFB754C4F1E4444A32 /* TabTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141222D913D80C6A106C61C73B66EAA /* TabTitleLabel.swift */; };
 		ACE9AC7FEDB61F15955809FA5283E5C1 /* TabPageOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5095B22B9728962790A40479BE19BDD9 /* TabPageOption.swift */; };
 		B30DF17C07C3FF7D66375F8D6913F640 /* TabCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B91913C25D0FA46649CE7742659350 /* TabCollectionCell.swift */; };
+		B31A8BD41DA4D84900E8E732 /* CollectionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31A8BD31DA4D84900E8E732 /* CollectionFlowLayout.swift */; };
+		B31A8BD51DA4D84900E8E732 /* CollectionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31A8BD31DA4D84900E8E732 /* CollectionFlowLayout.swift */; };
 		C5B022939A8BBF7CB7E6130D02C62430 /* TabView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B0D86E3CE296C795127106102008FF /* TabView.xib */; };
 		D748C7711BC662AB488742BE97A854D9 /* TabPageViewController-iOS8.3-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A010EB8FE237097614A4B2D4CD7EAF8 /* TabPageViewController-iOS8.3-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DD2F0C7EE53F578C03F5D81B899CDD2D /* TabPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45701EDEF7BCE611ACE9EC22CEC201D4 /* TabPageController.swift */; };
@@ -87,6 +89,7 @@
 		A9B0D86E3CE296C795127106102008FF /* TabView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = TabView.xib; sourceTree = "<group>"; };
 		AA5E268FA97C9FF7B10A0ED6437B1A84 /* TabPageViewController-iOS8.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "TabPageViewController-iOS8.0.modulemap"; sourceTree = "<group>"; };
 		B13E1E51AD01DF4CC76F629B430D956C /* Pods-TabPageViewController_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TabPageViewController_Tests-resources.sh"; sourceTree = "<group>"; };
+		B31A8BD31DA4D84900E8E732 /* CollectionFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionFlowLayout.swift; sourceTree = "<group>"; };
 		B656DD4FA3C4BF5CF393DC4370867A7C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B8BADE4D6BA9B936A6892231E33129BA /* TabPageViewController-iOS8.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "TabPageViewController-iOS8.0.xcconfig"; sourceTree = "<group>"; };
 		BF2FF7C72720D74A304F69908E8BC0F3 /* Pods-TabPageViewController_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TabPageViewController_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -154,6 +157,7 @@
 				5095B22B9728962790A40479BE19BDD9 /* TabPageOption.swift */,
 				2141222D913D80C6A106C61C73B66EAA /* TabTitleLabel.swift */,
 				5F6F31825A63AF3F56D7EBF7DC6D1FE3 /* TabView.swift */,
+				B31A8BD31DA4D84900E8E732 /* CollectionFlowLayout.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -469,6 +473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDDD8C7C804CB9EC29FBCD82024D3A0F /* Pods-TabPageViewController_Example-dummy.m in Sources */,
+				B31A8BD41DA4D84900E8E732 /* CollectionFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67600DC8C142AAD529A834EAAC6FDD40 /* Pods-TabPageViewController_Tests-dummy.m in Sources */,
+				B31A8BD51DA4D84900E8E732 /* CollectionFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,6 +563,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 23042EBBC2F3C28E6AF9635935CDEF7D /* Pods-TabPageViewController_Tests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -722,6 +729,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4B37FC5A1FFAA5F310628F828B7743B /* Pods-TabPageViewController_Example.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -755,6 +763,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8F1C1151598D0C791AB86FBC878D55FD /* Pods-TabPageViewController_Example.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -827,6 +836,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 540BC72F8D55F8ED7D8B30AB576E6CD7 /* Pods-TabPageViewController_Tests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
