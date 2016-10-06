@@ -10,20 +10,6 @@ import UIKit
 
 public class TabTitleLabel: UILabel, TabTitleViewProtocol {
 
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
-
-    private func commonInit() {
-        self.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-    }
-
     public func highlightTitle(option: TabPageOption?) {
         self.textColor = option?.currentColor
         if let fontSize = option?.fontSize {

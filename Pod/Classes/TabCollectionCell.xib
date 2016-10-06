@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TabCollectionCell" id="Njo-bq-MVA" customClass="TabCollectionCell" customModule="TabPageViewController" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="151" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="151" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UkM-Ly-JBr">
+                        <rect key="frame" x="0.0" y="48" width="151" height="2"/>
+                        <color key="backgroundColor" red="0.61176470588235299" green="0.91764705882352937" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="5V3-an-ChN"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Nr-Fd-In8">
+                        <rect key="frame" x="0.0" y="0.0" width="151" height="48"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sgu-AL-NbW">
+                        <rect key="frame" x="0.0" y="0.0" width="151" height="48"/>
+                        <connections>
+                            <action selector="tabItemTouchUpInside:" destination="Njo-bq-MVA" eventType="touchUpInside" id="pGR-A3-pEo"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="UkM-Ly-JBr" secondAttribute="trailing" id="03P-6M-I10"/>
+                <constraint firstItem="UkM-Ly-JBr" firstAttribute="leading" secondItem="Njo-bq-MVA" secondAttribute="leading" id="3Yw-nT-8nS"/>
+                <constraint firstItem="Sgu-AL-NbW" firstAttribute="leading" secondItem="Njo-bq-MVA" secondAttribute="leading" priority="750" id="8A5-j1-wap"/>
+                <constraint firstItem="Sgu-AL-NbW" firstAttribute="top" secondItem="Njo-bq-MVA" secondAttribute="top" priority="750" id="IJz-mm-YfC"/>
+                <constraint firstAttribute="bottom" secondItem="UkM-Ly-JBr" secondAttribute="bottom" id="J0J-D8-GeH"/>
+                <constraint firstItem="5Nr-Fd-In8" firstAttribute="top" secondItem="Njo-bq-MVA" secondAttribute="top" id="bvO-DM-BV0"/>
+                <constraint firstItem="5Nr-Fd-In8" firstAttribute="leading" secondItem="Njo-bq-MVA" secondAttribute="leading" id="feb-Q3-IYI"/>
+                <constraint firstAttribute="trailing" secondItem="5Nr-Fd-In8" secondAttribute="trailing" id="hwB-E0-uwJ"/>
+                <constraint firstAttribute="trailing" secondItem="Sgu-AL-NbW" secondAttribute="trailing" priority="750" id="mA5-Ef-SrJ"/>
+                <constraint firstItem="UkM-Ly-JBr" firstAttribute="top" secondItem="5Nr-Fd-In8" secondAttribute="bottom" id="mUr-2R-D8x"/>
+                <constraint firstItem="UkM-Ly-JBr" firstAttribute="top" secondItem="Sgu-AL-NbW" secondAttribute="bottom" priority="750" id="qYV-Rl-all"/>
+            </constraints>
+            <size key="customSize" width="151" height="50"/>
+            <connections>
+                <outlet property="currentBarView" destination="UkM-Ly-JBr" id="YSM-Pt-X2a"/>
+                <outlet property="itemContainer" destination="5Nr-Fd-In8" id="qZ4-Am-7Qs"/>
+                <outlet property="touchButton" destination="Sgu-AL-NbW" id="uWs-XL-2HU"/>
+            </connections>
+            <point key="canvasLocation" x="145.5" y="273"/>
+        </collectionViewCell>
+    </objects>
+</document>

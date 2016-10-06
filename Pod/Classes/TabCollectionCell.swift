@@ -9,9 +9,10 @@
 import UIKit
 
 class TabCollectionCell: UICollectionViewCell {
-    public var itemContainer =  UIView()
-    private var currentBarView = UIView()
-    private var touchButton = UIButton()
+    @IBOutlet private weak var itemContainer: UIView!
+    @IBOutlet private weak var currentBarView: UIView!
+    @IBOutlet private weak var touchButton: UIButton!
+
     var tabItemButtonPressedBlock: (Void -> Void)?
     var option: TabPageOption = TabPageOption()
     var titleItem: TabTitleViewProtocol? {
@@ -19,7 +20,6 @@ class TabCollectionCell: UICollectionViewCell {
 
             if let titleItem = self.titleItem as? UIView {
                 if titleItem is TabTitleViewProtocol {
-                    titleItem.sizeToFit()
                     itemContainer.subviews.forEach({ $0.removeFromSuperview() })
                     itemContainer.addSubview(titleItem)
                 }
@@ -40,26 +40,11 @@ class TabCollectionCell: UICollectionViewCell {
         }
     }
 
-    init() {
-        super.init(frame: CGRect.zero)
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
         self.contentView.backgroundColor = option.tabBackgroundColor
         currentBarView.hidden = true
-        touchButton.addTarget(self, action: #selector(TabCollectionCell.tabItemTouchUpInside(_:)), forControlEvents: .TouchUpInside)
-        self.contentView.addSubview(itemContainer)
-        self.contentView.addSubview(currentBarView)
-        self.contentView.addSubview(touchButton)
-    }
-
-    override convenience init(frame: CGRect) {
-        self.init()
-    }
-
-    required convenience init?(coder aDecoder: NSCoder) {
-        self.init()
-    }
-
-    deinit {
-        touchButton.removeTarget(self, action: #selector(TabCollectionCell.tabItemTouchUpInside(_:)), forControlEvents: .TouchUpInside)
     }
 
     class func cellIdentifier() -> String {
@@ -81,8 +66,6 @@ extension TabCollectionCell {
         let size = CGSizeMake(width, option.tabHeight)
         itemContainer.frame.size = size
         itemContainer.subviews.forEach({ $0.frame.size = size })
-        touchButton.frame.size = size
-        currentBarView.frame = CGRect(x: 0, y: size.height - option.currentBarHeight, width: width, height: option.currentBarHeight)
 
     }
 
@@ -101,12 +84,10 @@ extension TabCollectionCell {
         titleItem?.unHighlightTitle(option)
     }
 }
-
-
 // MARK: - IBAction
 
 extension TabCollectionCell {
-    @objc private func tabItemTouchUpInside(button: UIButton) {
+    @IBAction private func tabItemTouchUpInside(button: UIButton) {
         tabItemButtonPressedBlock?()
     }
 }
