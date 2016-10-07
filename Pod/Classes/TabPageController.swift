@@ -97,10 +97,12 @@ public extension TabPageViewController {
 
         beforeIndex = index
         shouldScrollCurrentBar = false
+        tabView.shouldScrollCurrentBar = false
         let nextViewControllers: [UIViewController] = [tabItems[index]]
 
         let completion: (Bool -> Void) = { [weak self] _ in
             self?.shouldScrollCurrentBar = true
+            self?.tabView.shouldScrollCurrentBar = true
             self?.beforeIndex = index
             didComplete?()
         }
@@ -263,8 +265,8 @@ extension TabPageViewController: UIPageViewControllerDelegate {
 
     public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         shouldScrollCurrentBar = true
+        tabView.shouldScrollCurrentBar = true
         tabView.scrollToHorizontalCenter()
-
         // Order to prevent the the hit repeatedly during animation
         tabView.updateCollectionViewUserInteractionEnabled(false)
     }
@@ -285,7 +287,8 @@ extension TabPageViewController: UIPageViewControllerDelegate {
 extension TabPageViewController: UIScrollViewDelegate {
 
     public func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.contentOffset.x == defaultContentOffsetX || !shouldScrollCurrentBar {
+       
+        guard scrollView.contentOffset.x != defaultContentOffsetX && shouldScrollCurrentBar else {
             return
         }
 

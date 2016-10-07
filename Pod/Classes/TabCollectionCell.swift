@@ -13,13 +13,20 @@ class TabCollectionCell: UICollectionViewCell {
     private var currentBarView = UIView()
     private var touchButton = UIButton()
     var tabItemButtonPressedBlock: (Void -> Void)?
-    var option: TabPageOption = TabPageOption()
+    var option: TabPageOption = TabPageOption() {
+        didSet {
+
+            self.currentBarView.backgroundColor = option.currentBarColor
+            self.contentView.backgroundColor = option.tabBackgroundColor
+            layoutIfNeeded()
+        }
+    }
     var titleItem: TabTitleViewProtocol? {
         didSet {
 
             if let titleItem = self.titleItem as? UIView {
                 if titleItem is TabTitleViewProtocol {
-                    titleItem.sizeToFit()
+                    titleItem.frame = itemContainer.bounds
                     itemContainer.subviews.forEach({ $0.removeFromSuperview() })
                     itemContainer.addSubview(titleItem)
                 }
@@ -28,21 +35,10 @@ class TabCollectionCell: UICollectionViewCell {
         }
     }
 
-    var isCurrent: Bool = false {
-        didSet {
-            if isCurrent {
-                highlightTitle()
-            } else {
-                unHighlightTitle()
-            }
-            currentBarView.backgroundColor = option.currentBarColor
-            layoutIfNeeded()
-        }
-    }
+    var isCurrent: Bool = false
 
     init() {
         super.init(frame: CGRect.zero)
-        self.contentView.backgroundColor = option.tabBackgroundColor
         currentBarView.hidden = true
         touchButton.addTarget(self, action: #selector(TabCollectionCell.tabItemTouchUpInside(_:)), forControlEvents: .TouchUpInside)
         self.contentView.addSubview(itemContainer)
@@ -57,7 +53,14 @@ class TabCollectionCell: UICollectionViewCell {
     required convenience init?(coder aDecoder: NSCoder) {
         self.init()
     }
-
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.isCurrent = false
+        hideCurrentBarView()
+        unHighlightTitle()
+    }
+    
     deinit {
         touchButton.removeTarget(self, action: #selector(TabCollectionCell.tabItemTouchUpInside(_:)), forControlEvents: .TouchUpInside)
     }
@@ -81,6 +84,7 @@ extension TabCollectionCell {
         let size = CGSizeMake(width, option.tabHeight)
         itemContainer.frame.size = size
         itemContainer.subviews.forEach({ $0.frame.size = size })
+        itemContainer.layoutIfNeeded()
         touchButton.frame.size = size
         currentBarView.frame = CGRect(x: 0, y: size.height - option.currentBarHeight, width: width, height: option.currentBarHeight)
 

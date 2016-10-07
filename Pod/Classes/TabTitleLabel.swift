@@ -19,7 +19,7 @@ public class TabTitleLabel: UILabel, TabTitleViewProtocol {
         super.init(frame: frame)
         commonInit()
     }
-
+    
     private func commonInit() {
         self.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     }
@@ -36,13 +36,6 @@ public class TabTitleLabel: UILabel, TabTitleViewProtocol {
         self.textColor = option?.defaultColor
         if let fontSize = option?.fontSize {
             self.font = UIFont.boldSystemFontOfSize(fontSize)
-        }
-    }
-
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        if let superViewBounds = self.superview?.bounds {
-            self.frame = superViewBounds
         }
     }
 }
