@@ -299,13 +299,12 @@ extension TabPageViewController: UIScrollViewDelegate {
         } else {
             index = beforeIndex - 1
         }
-
+        
         if index == tabItemsCount {
             index = 0
         } else if index < 0 {
             index = tabItemsCount - 1
         }
-
         let scrollOffsetX = scrollView.contentOffset.x - view.frame.width
         tabView.scrollCurrentBarView(index, contentOffsetX: scrollOffsetX)
     }

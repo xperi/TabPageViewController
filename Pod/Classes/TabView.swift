@@ -139,7 +139,10 @@ extension TabView {
         let nextIndexPath = NSIndexPath(forItem: nextIndex, inSection: 0)
         if let currentCell = collectionView.cellForItemAtIndexPath(currentIndexPath) as? TabCollectionCell, nextCell = collectionView.cellForItemAtIndexPath(nextIndexPath) as? TabCollectionCell {
             let distance = (currentCell.frame.width / 2.0) + (nextCell.frame.width / 2.0)
-            let scrollRate = contentOffsetX / frame.width
+            var scrollRate = contentOffsetX / frame.width
+            scrollRate = scrollRate > 1 ? 1 : scrollRate
+            scrollRate = scrollRate < -1 ? -1 : scrollRate
+            
             let width = fabs(scrollRate) * (nextCell.frame.width - currentCell.frame.width)
             if !self.isInfinity && self.option.currentBarAnimation {
                 nextCell.hideCurrentBarView()
@@ -163,7 +166,6 @@ extension TabView {
                 let scroll = scrollRate * distance
                 collectionView.contentOffset.x = collectionViewContentOffsetX + scroll
             } else {
-                print("scrollRate \(scrollRate)")
                 if scrollRate > 0 {
                     currentBarView.frame.origin.x = currentCell.frame.minX + scrollRate * currentCell.frame.width
                 } else {
