@@ -259,6 +259,13 @@ extension TabView {
             }
             if animated && self.option.currentBarAnimation && !isInfinity && !shouldScrollCurrentBar {
                 self.isMoveCurrentBarView = true
+                if self.currentBarView.frame.size.width == 0 {
+                    let prevIndexPath = NSIndexPath(forItem: beforeIndex, inSection: 0)
+                    if let prevCell = collectionView.cellForItemAtIndexPath(prevIndexPath) as? TabCollectionCell {
+                         self.currentBarView.frame.size.width = prevCell.frame.size.width
+                    }
+                }
+                
                 UIView.animateWithDuration(self.option.currentBarAnimationDuration, animations: {
                     
                     self.currentBarView.hidden = false
