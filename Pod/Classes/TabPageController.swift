@@ -118,7 +118,6 @@ public extension TabPageViewController {
 
         setupPageViewController()
         setupScrollView()
-        tabView = self.configuredTabView()
         tabView.dataSource = self.tabViewDataSource
         tabView.reloadData()
 
@@ -187,7 +186,7 @@ extension TabPageViewController {
             toItem: topLayoutGuide,
             attribute: .Bottom,
             multiplier:1.0,
-            constant: 0.0)
+            constant: option.tabViewTopMargin)
 
         let left = NSLayoutConstraint(item: tabView,
             attribute: .Leading,
@@ -195,7 +194,7 @@ extension TabPageViewController {
             toItem: view,
             attribute: .Leading,
             multiplier: 1.0,
-            constant: 0.0)
+            constant: option.tabViewLeftMargin)
 
         let right = NSLayoutConstraint(item: view,
             attribute: .Trailing,
@@ -203,8 +202,7 @@ extension TabPageViewController {
             toItem: tabView,
             attribute: .Trailing,
             multiplier: 1.0,
-            constant: 0.0)
-
+            constant: option.tabViewRightMargin)
         view.addConstraints([top, left, right])
 
         tabView.dataSource = self.tabViewDataSource
