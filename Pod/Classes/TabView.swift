@@ -360,8 +360,8 @@ extension TabView: UICollectionViewDataSource {
 
     private func configureCell(cell: TabCollectionCell, indexPath: NSIndexPath) {
         let fixedIndex = isInfinity ? indexPath.item % pageTabItemsCount : indexPath.item
-        cell.titleItem = self.dataSource?.tabView(self, viewForIndexPath: fixedIndex)
         cell.option = option
+        cell.titleItem = self.dataSource?.tabView(self, viewForIndexPath: fixedIndex)
         cell.isCurrent = fixedIndex == (currentIndex % pageTabItemsCount)
         if cell.isCurrent {
             cell.highlightTitle()
@@ -397,6 +397,7 @@ extension TabView: UICollectionViewDataSource {
             
             self?.updateCurrentIndexForTap(indexPath.item)
         }
+        cell.setNeedsLayout()
     }
 }
 
