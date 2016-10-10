@@ -198,9 +198,7 @@ extension TabView {
      - parameter index: Next Index
      */
     func updateCurrentIndex(index: Int, animated: Bool? = nil, shouldScroll: Bool) {
-        if !isInfinity {
-            //deselectVisibleCells()
-        }
+
         currentIndex = isInfinity ? index + pageTabItemsCount : index
 
         let indexPath = NSIndexPath(forItem: currentIndex, inSection: 0)
@@ -232,8 +230,9 @@ extension TabView {
 
      - parameter indexPath: Next IndexPath
      - parameter animated: true when you tap to move the isInfinityTabCollectionCell
-     - parameter shouldScroll:
+     - parameter shouldScroll: shouldScroll은 자동으로 tabview 가운데로 스크롤할지 정하는 플래그
      */
+    
     private func moveCurrentBarView(indexPath: NSIndexPath, animated: Bool, shouldScroll: Bool) {
 
         if shouldScroll && isScrollToItemAble(indexPath) {
@@ -244,6 +243,7 @@ extension TabView {
             updateCollectionViewUserInteractionEnabled(true)
         }
         if !self.isInfinity {
+            // 무한이 아니면 모든 보이는 셀들의 하단바를 숨김
             self.deselectVisibleCells(hideCurrentBar: true)
         }
         if let currentCell = self.collectionView.cellForItemAtIndexPath(indexPath) as? TabCollectionCell {

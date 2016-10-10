@@ -283,18 +283,19 @@ extension TabPageViewController: UIPageViewControllerDelegate {
 // MARK: - UIScrollViewDelegate
 
 extension TabPageViewController: UIScrollViewDelegate {
-
+    
     public func scrollViewDidScroll(scrollView: UIScrollView) {
-       
+        // UIPageViewController 기본보다 더 움직이고  shouldScrollCurrentBar(움직임 가능 플래그) 가 True일때만
         guard scrollView.contentOffset.x != defaultContentOffsetX && shouldScrollCurrentBar else {
             return
         }
 
-        // (0..<tabItemsCount)
         var index: Int
         if scrollView.contentOffset.x > defaultContentOffsetX {
+            // 오른쪽으로 이동
             index = beforeIndex + 1
         } else {
+            // 왼쪽으로 이동
             index = beforeIndex - 1
         }
         
@@ -306,7 +307,7 @@ extension TabPageViewController: UIScrollViewDelegate {
         let scrollOffsetX = scrollView.contentOffset.x - view.frame.width
         tabView.scrollCurrentBarView(index, contentOffsetX: scrollOffsetX)
     }
-
+    // 스크롤이 움직였을때 현재 인덱스를 업데이트 shouldScroll은 자동으로 tabview 가운데로 스크롤할지 정하는 플래그
     public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         tabView.updateCurrentIndex(beforeIndex, shouldScroll: true)
     }
