@@ -26,7 +26,9 @@ class TabCollectionCell: UICollectionViewCell {
 
             if let titleItem = self.titleItem as? UIView {
                 if titleItem is TabTitleViewProtocol {
-                    titleItem.frame = itemContainer.bounds
+                    titleItem.sizeToFit()
+                    titleItem.frame.size.height = option.tabHeight
+                    itemContainer.frame.size.width = titleItem.frame.size.width
                     itemContainer.subviews.forEach({ $0.removeFromSuperview() })
                     itemContainer.addSubview(titleItem)
                 }
@@ -80,6 +82,8 @@ extension TabCollectionCell {
         var width: CGFloat = 0.0
         if let tabWidth = option.tabWidth where tabWidth > 0.0 {
             width = tabWidth
+        } else {
+            width = itemContainer.frame.size.width
         }
         let size = CGSizeMake(width, option.tabHeight)
         itemContainer.frame.size = size
@@ -88,6 +92,12 @@ extension TabCollectionCell {
         touchButton.frame.size = size
         currentBarView.frame = CGRect(x: 0, y: size.height - option.currentBarHeight, width: width, height: option.currentBarHeight)
 
+    }
+   
+    // option.tabWidth 가 정의되지 않을때 셀 사이즈 가져오는 메소드
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        
+        return CGSize(width: itemContainer.frame.size.width, height: size.height)
     }
 
     func hideCurrentBarView() {

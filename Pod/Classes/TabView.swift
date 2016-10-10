@@ -470,9 +470,17 @@ extension TabView: UICollectionViewDelegate {
 extension TabView: UICollectionViewDelegateFlowLayout {
 
     public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        var cell = TabCollectionCell()
+        configureCell(cell, indexPath: indexPath)
+        let tabWidth: CGFloat? = option.tabWidth
+        if let tabWidth = tabWidth {
+            return CGSizeMake(tabWidth, option.tabHeight)
 
-        return CGSizeMake(option.tabWidth ?? collectionView.bounds.width, option.tabHeight)
+        }
+        return cell.sizeThatFits(CGSizeMake(collectionView.bounds.width, option.tabHeight))
     }
+
 
     public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0.0
