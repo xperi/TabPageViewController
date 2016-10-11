@@ -342,7 +342,7 @@ extension TabView {
 
     private func isScrollToItemAble(indexPath: NSIndexPath) -> Bool {
 
-        return pageTabItemsCount > 0
+        return pageTabItemsCount > 0 && pageTabItemsCount > indexPath.item
 
     }
 }
