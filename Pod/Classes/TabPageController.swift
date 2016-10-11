@@ -17,9 +17,13 @@ public protocol TabTitleViewProtocol: NSObjectProtocol {
     func highlightTitle(option: TabPageOption?)
     func unHighlightTitle(option: TabPageOption?)
 }
-
+public protocol TabPageViewControllerDelegate: NSObjectProtocol {
+    func tabPageViewController(tabPageViewController: TabPageViewController, willSelectViewController: UIViewController)
+    func tabPageViewController(tabPageViewController: TabPageViewController, didSelectViewController: UIViewController)
+}
 
 public class TabPageViewController: UIPageViewController {
+    public var tabPageViewControllerDelegate: TabPageViewControllerDelegate?
     public var isInfinity: Bool = false
     public var option: TabPageOption = TabPageOption()
     public var tabItems: [UIViewController] = [] {
@@ -34,12 +38,32 @@ public class TabPageViewController: UIPageViewController {
             scrollView?.scrollEnabled = tabPageScrollEnable
         }
     }
+    
     public var currentIndex: Int? {
         guard let viewController = viewControllers?.first else {
             return nil
         }
         return tabItems.indexOf(viewController)
     }
+    
+    public var tabViewContentInset: UIEdgeInsets? {
+        didSet {
+            guard let tabViewContentInset = tabViewContentInset else {
+                return
+            }
+            tabView.collectionView.contentInset = tabViewContentInset
+        }
+    }
+    
+    public var tabViewContentOffset: CGPoint? {
+        didSet {
+            guard let tabViewContentOffset = tabViewContentOffset else {
+                return
+            }
+            tabView.collectionView.contentOffset = tabViewContentOffset
+        }
+    }
+    
     private var beforeIndex: Int = 0
     private var tabItemsCount: Int = 0
     private var defaultContentOffsetX: CGFloat {
@@ -104,9 +128,19 @@ public extension TabPageViewController {
             self?.shouldScrollCurrentBar = true
             self?.tabView.shouldScrollCurrentBar = true
             self?.beforeIndex = index
+            /// 자식컨트롤러 선택시 델리게이트 애니메이션 후
+            if let tabPageViewController = self, tabPageViewControllerDelegate = tabPageViewController.tabPageViewControllerDelegate
+                where nextViewControllers.count == 1 {
+                tabPageViewControllerDelegate.tabPageViewController(tabPageViewController, didSelectViewController:nextViewControllers[0])
+            }
             didComplete?()
         }
-
+        /// 자식컨트롤러 선택시 델리게이트 애니메이션 전
+        if let tabPageViewControllerDelegate = self.tabPageViewControllerDelegate
+            where nextViewControllers.count == 1 {
+            tabPageViewControllerDelegate.tabPageViewController(self, willSelectViewController:nextViewControllers[0])
+        }
+    
         setViewControllers(
             nextViewControllers,
             direction: direction,
@@ -126,6 +160,8 @@ public extension TabPageViewController {
     public func updateTabViewIndex() {
         tabView.updateCurrentIndex(beforeIndex, shouldScroll: true)
     }
+
+   
 }
 
 
@@ -283,7 +319,7 @@ extension TabPageViewController: UIPageViewControllerDelegate {
 // MARK: - UIScrollViewDelegate
 
 extension TabPageViewController: UIScrollViewDelegate {
-    
+
     public func scrollViewDidScroll(scrollView: UIScrollView) {
         // UIPageViewController 기본보다 더 움직이고  shouldScrollCurrentBar(움직임 가능 플래그) 가 True일때만
         guard scrollView.contentOffset.x != defaultContentOffsetX && shouldScrollCurrentBar else {
@@ -298,7 +334,7 @@ extension TabPageViewController: UIScrollViewDelegate {
             // 왼쪽으로 이동
             index = beforeIndex - 1
         }
-        
+
         if index == tabItemsCount {
             index = 0
         } else if index < 0 {

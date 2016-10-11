@@ -33,7 +33,7 @@ public class TabView: UIView {
     private var currentBarViewWidth: CGFloat = 0.0
 
     @IBOutlet var contentView: UIView!
-    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet public weak var collectionView: UICollectionView!
     var currentBarView: UIView!
 
     init(isInfinity: Bool, option: TabPageOption) {
@@ -142,7 +142,7 @@ extension TabView {
             var scrollRate = contentOffsetX / frame.width
             scrollRate = scrollRate > 1 ? 1 : scrollRate
             scrollRate = scrollRate < -1 ? -1 : scrollRate
-            
+
             let width = fabs(scrollRate) * (nextCell.frame.width - currentCell.frame.width)
             if !self.isInfinity && self.option.currentBarAnimation {
                 nextCell.hideCurrentBarView()
@@ -152,7 +152,7 @@ extension TabView {
                 if currentBarViewWidth == 0.0 {
                     currentBarViewWidth = currentCell.frame.width
                 }
-                
+
                 if fabs(scrollRate) > 0.6 {
                     nextCell.highlightTitle()
                     currentCell.unHighlightTitle()
@@ -232,7 +232,7 @@ extension TabView {
      - parameter animated: true when you tap to move the isInfinityTabCollectionCell
      - parameter shouldScroll: shouldScroll은 자동으로 tabview 가운데로 스크롤할지 정하는 플래그
      */
-    
+
     private func moveCurrentBarView(indexPath: NSIndexPath, animated: Bool, shouldScroll: Bool) {
 
         if shouldScroll && isScrollToItemAble(indexPath) {
@@ -265,9 +265,9 @@ extension TabView {
                          self.currentBarView.frame.size.width = prevCell.frame.size.width
                     }
                 }
-                
+
                 UIView.animateWithDuration(self.option.currentBarAnimationDuration, animations: {
-                    
+
                     self.currentBarView.hidden = false
                     self.currentBarView.frame.origin.x = currentCell.frame.origin.x
                     self.currentBarView.frame.size.width = currentCell.frame.size.width
@@ -324,7 +324,7 @@ extension TabView {
             .flatMap { $0 as? TabCollectionCell }
             .filter ({ (cell: TabCollectionCell) -> (Bool) in
                 if let exceptionCell = exceptionCell where cell == exceptionCell {
-                    
+
                     return false
                 }
                 return true
@@ -401,7 +401,7 @@ extension TabView: UICollectionViewDataSource {
 
             // Not accept touch events to scroll the animation is finished
             self?.updateCollectionViewUserInteractionEnabled(false)
-            
+
             self?.updateCurrentIndexForTap(indexPath.item)
         }
         cell.setNeedsLayout()
@@ -478,7 +478,7 @@ extension TabView: UICollectionViewDelegate {
 extension TabView: UICollectionViewDelegateFlowLayout {
 
     public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
+
         var cell = TabCollectionCell()
         configureCell(cell, indexPath: indexPath)
         let tabWidth: CGFloat? = option.tabWidth
