@@ -202,6 +202,7 @@ extension TabView {
         currentIndex = isInfinity ? index + pageTabItemsCount : index
 
         let indexPath = NSIndexPath(forItem: currentIndex, inSection: 0)
+        self.deselectVisibleCells(unHighlightTitle: true)
         moveCurrentBarView(indexPath, animated: animated ?? !isInfinity, shouldScroll: shouldScroll)
     }
 
