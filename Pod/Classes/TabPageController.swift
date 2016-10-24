@@ -18,6 +18,7 @@ public protocol TabTitleViewProtocol: NSObjectProtocol {
     func unHighlightTitle(option: TabPageOption?)
 }
 public protocol TabPageViewControllerDelegate: NSObjectProtocol {
+    func tabPageViewController(tabPageViewController: TabPageViewController, didSelectCurrentViewController: UIViewController)
     func tabPageViewController(tabPageViewController: TabPageViewController, willSelectViewController: UIViewController)
     func tabPageViewController(tabPageViewController: TabPageViewController, didSelectViewController: UIViewController)
 }
@@ -118,12 +119,12 @@ public class TabPageViewController: UIPageViewController {
 public extension TabPageViewController {
 
     public func displayControllerWithIndex(index: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool, didComplete: (Void -> Void)? = nil) {
-
+        
+        let nextViewControllers: [UIViewController] = [tabItems[index]]
         beforeIndex = index
         shouldScrollCurrentBar = false
         tabView.shouldScrollCurrentBar = false
-        let nextViewControllers: [UIViewController] = [tabItems[index]]
-
+        
         let completion: (Bool -> Void) = { [weak self] _ in
             self?.shouldScrollCurrentBar = true
             self?.tabView.shouldScrollCurrentBar = true
@@ -244,8 +245,14 @@ extension TabPageViewController {
         tabView.dataSource = self.tabViewDataSource
         tabView.updateCurrentIndex(beforeIndex, animated: false, shouldScroll: true)
 
-        tabView.pageItemPressedBlock = { [weak self] (index: Int, direction: UIPageViewControllerNavigationDirection) in
-            self?.displayControllerWithIndex(index, direction: direction, animated: true)
+        tabView.pageItemPressedBlock = { [weak self] (index: Int, direction: UIPageViewControllerNavigationDirection, isCurrentPage: Bool) in
+            if isCurrentPage {
+                if let tabPageViewController = self, currentViewController =  tabPageViewController.viewControllers?.first {
+                    tabPageViewController.tabPageViewControllerDelegate?.tabPageViewController(tabPageViewController, didSelectCurrentViewController:currentViewController)
+                }
+            } else {
+                self?.displayControllerWithIndex(index, direction: direction, animated: true)
+            }
         }
 
         return tabView

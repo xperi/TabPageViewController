@@ -10,7 +10,7 @@ import UIKit
 
 public class TabView: UIView {
 
-    var pageItemPressedBlock: ((index: Int, direction: UIPageViewControllerNavigationDirection) -> Void)?
+    var pageItemPressedBlock: ((index: Int, direction: UIPageViewControllerNavigationDirection, isCurrentPage: Bool) -> Void)?
     public var isInfinity: Bool = false
     var shouldScrollCurrentBar = false
     public weak var dataSource: TabViewDataSource? = nil {
@@ -301,7 +301,7 @@ extension TabView {
                     direction = .Reverse
                 }
             }
-            self.pageItemPressedBlock?(index: fixedIndex, direction: direction)
+            self.pageItemPressedBlock?(index: fixedIndex, direction: direction, isCurrentPage: false)
         }
     }
 
@@ -383,6 +383,7 @@ extension TabView: UICollectionViewDataSource {
             guard let shouldScrollCurrentBar = self?.shouldScrollCurrentBar where shouldScrollCurrentBar,
                 let isMoveCurrentBarView = self?.isMoveCurrentBarView where !isMoveCurrentBarView,
                 let cell = cell where !cell.isCurrent  else {
+                self?.pageItemPressedBlock?(index: fixedIndex, direction: .Forward, isCurrentPage: true)
                 return
             }
 
@@ -398,7 +399,7 @@ extension TabView: UICollectionViewDataSource {
                     }
                 }
             }
-            self?.pageItemPressedBlock?(index: fixedIndex, direction: direction)
+            self?.pageItemPressedBlock?(index: fixedIndex, direction: direction, isCurrentPage: false)
 
             // Not accept touch events to scroll the animation is finished
             self?.updateCollectionViewUserInteractionEnabled(false)
