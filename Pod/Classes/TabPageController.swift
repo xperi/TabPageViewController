@@ -21,6 +21,7 @@ public protocol TabPageViewControllerDelegate: NSObjectProtocol {
     func tabPageViewController(tabPageViewController: TabPageViewController, didSelectCurrentViewController: UIViewController)
     func tabPageViewController(tabPageViewController: TabPageViewController, willSelectViewController: UIViewController)
     func tabPageViewController(tabPageViewController: TabPageViewController, didSelectViewController: UIViewController)
+    func tabPageViewController(tabPageViewController: TabPageViewController, didMoveViewController: UIViewController)
 }
 
 public class TabPageViewController: UIPageViewController {
@@ -316,8 +317,11 @@ extension TabPageViewController: UIPageViewControllerDelegate {
         if let currentIndex = currentIndex where currentIndex < tabItemsCount {
             tabView.updateCurrentIndex(currentIndex, shouldScroll: false)
             beforeIndex = currentIndex
+            if let nextViewControllers: [UIViewController] = [tabItems[currentIndex]], nextViewController = nextViewControllers.first {
+                self.tabPageViewControllerDelegate?.tabPageViewController(self, didMoveViewController:nextViewController)
+            }
         }
-
+        
         tabView.updateCollectionViewUserInteractionEnabled(true)
     }
 }
