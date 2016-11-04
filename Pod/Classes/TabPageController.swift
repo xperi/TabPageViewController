@@ -40,14 +40,14 @@ public class TabPageViewController: UIPageViewController {
             scrollView?.scrollEnabled = tabPageScrollEnable
         }
     }
-    
+
     public var currentIndex: Int? {
         guard let viewController = viewControllers?.first else {
             return nil
         }
         return tabItems.indexOf(viewController)
     }
-    
+
     public var tabViewContentInset: UIEdgeInsets? {
         didSet {
             guard let tabViewContentInset = tabViewContentInset else {
@@ -56,7 +56,7 @@ public class TabPageViewController: UIPageViewController {
             tabView.collectionView.contentInset = tabViewContentInset
         }
     }
-    
+
     public var tabViewContentOffset: CGPoint? {
         didSet {
             guard let tabViewContentOffset = tabViewContentOffset else {
@@ -65,7 +65,7 @@ public class TabPageViewController: UIPageViewController {
             tabView.collectionView.contentOffset = tabViewContentOffset
         }
     }
-    
+
     private var beforeIndex: Int = 0
     private var tabItemsCount: Int = 0
     private var defaultContentOffsetX: CGFloat {
@@ -120,12 +120,14 @@ public class TabPageViewController: UIPageViewController {
 public extension TabPageViewController {
 
     public func displayControllerWithIndex(index: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool, didComplete: (Void -> Void)? = nil) {
-        
+        guard tabItems.count > index else {
+            return
+        }
         let nextViewControllers: [UIViewController] = [tabItems[index]]
         beforeIndex = index
         shouldScrollCurrentBar = false
         tabView.shouldScrollCurrentBar = false
-        
+
         let completion: (Bool -> Void) = { [weak self] _ in
             self?.shouldScrollCurrentBar = true
             self?.tabView.shouldScrollCurrentBar = true
@@ -142,7 +144,7 @@ public extension TabPageViewController {
             where nextViewControllers.count == 1 {
             tabPageViewControllerDelegate.tabPageViewController(self, willSelectViewController:nextViewControllers[0])
         }
-    
+
         setViewControllers(
             nextViewControllers,
             direction: direction,
@@ -163,7 +165,7 @@ public extension TabPageViewController {
         tabView.updateCurrentIndex(beforeIndex, shouldScroll: true)
     }
 
-   
+
 }
 
 
@@ -321,7 +323,7 @@ extension TabPageViewController: UIPageViewControllerDelegate {
                 self.tabPageViewControllerDelegate?.tabPageViewController(self, didMoveViewController:nextViewController)
             }
         }
-        
+
         tabView.updateCollectionViewUserInteractionEnabled(true)
     }
 }
