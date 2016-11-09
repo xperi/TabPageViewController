@@ -72,7 +72,11 @@ public class TabPageViewController: UIPageViewController {
         return self.view.bounds.width
     }
 
-    private var shouldScrollCurrentBar: Bool = true
+    private var shouldScrollCurrentBar: Bool = true {
+        didSet {
+            tabView.shouldScrollCurrentBar = shouldScrollCurrentBar
+        }
+    }
     lazy private var tabView: TabView = self.configuredTabView()
 
     public override init(transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation, options: [String : AnyObject]?) {
@@ -120,38 +124,39 @@ public class TabPageViewController: UIPageViewController {
 public extension TabPageViewController {
 
     public func displayControllerWithIndex(index: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool, didComplete: (Void -> Void)? = nil) {
-
+        
         guard tabItems.count > index && shouldScrollCurrentBar else {
             return
         }
+
         let nextViewControllers: [UIViewController] = [tabItems[index]]
         beforeIndex = index
         shouldScrollCurrentBar = false
-        tabView.shouldScrollCurrentBar = false
         self.view.userInteractionEnabled = false
         let completion: (Bool -> Void) = { [weak self] _ in
-            self?.shouldScrollCurrentBar = true
-            self?.tabView.shouldScrollCurrentBar = true
-            self?.beforeIndex = index
-            self?.view.userInteractionEnabled = true
             /// 자식컨트롤러 선택시 델리게이트 애니메이션 후
             if let tabPageViewController = self, tabPageViewControllerDelegate = tabPageViewController.tabPageViewControllerDelegate
                 where nextViewControllers.count == 1 {
                 tabPageViewControllerDelegate.tabPageViewController(tabPageViewController, didSelectViewController:nextViewControllers[0])
             }
             didComplete?()
+            self?.beforeIndex = index
+            self?.shouldScrollCurrentBar = true
+            self?.view.userInteractionEnabled = true
         }
         /// 자식컨트롤러 선택시 델리게이트 애니메이션 전
         if let tabPageViewControllerDelegate = self.tabPageViewControllerDelegate
             where nextViewControllers.count == 1 {
             tabPageViewControllerDelegate.tabPageViewController(self, willSelectViewController:nextViewControllers[0])
         }
-
+        
         setViewControllers(
             nextViewControllers,
             direction: direction,
             animated: animated,
             completion: completion)
+        
+        
     }
 
     public func reloadData() {
@@ -310,11 +315,10 @@ extension TabPageViewController: UIPageViewControllerDataSource {
 extension TabPageViewController: UIPageViewControllerDelegate {
 
     public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
-        shouldScrollCurrentBar = true
-        tabView.shouldScrollCurrentBar = true
         tabView.scrollToHorizontalCenter()
         // Order to prevent the the hit repeatedly during animation
         tabView.updateCollectionViewUserInteractionEnabled(false)
+
     }
 
     public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
@@ -325,7 +329,6 @@ extension TabPageViewController: UIPageViewControllerDelegate {
                 self.tabPageViewControllerDelegate?.tabPageViewController(self, didMoveViewController:nextViewController)
             }
         }
-
         tabView.updateCollectionViewUserInteractionEnabled(true)
     }
 }
@@ -340,7 +343,6 @@ extension TabPageViewController: UIScrollViewDelegate {
         guard scrollView.contentOffset.x != defaultContentOffsetX && shouldScrollCurrentBar else {
             return
         }
-
         var index: Int
         if scrollView.contentOffset.x > defaultContentOffsetX {
             // 오른쪽으로 이동
@@ -361,5 +363,19 @@ extension TabPageViewController: UIScrollViewDelegate {
     // 스크롤이 움직였을때 현재 인덱스를 업데이트 shouldScroll은 자동으로 tabview 가운데로 스크롤할지 정하는 플래그
     public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         tabView.updateCurrentIndex(beforeIndex, shouldScroll: true)
+        shouldScrollCurrentBar = true
+        self.view.userInteractionEnabled = true
+
+    }
+    
+    public func scrollViewWillBeginDragging(scrollView: UIScrollView){
+        shouldScrollCurrentBar = false
+        self.view.userInteractionEnabled = false
+
+    }
+    
+    public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView){
+        shouldScrollCurrentBar = true
+        self.view.userInteractionEnabled = true
     }
 }
