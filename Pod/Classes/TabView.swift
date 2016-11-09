@@ -12,7 +12,8 @@ public class TabView: UIView {
 
     var pageItemPressedBlock: ((index: Int, direction: UIPageViewControllerNavigationDirection, isCurrentPage: Bool) -> Void)?
     public var isInfinity: Bool = false
-    var shouldScrollCurrentBar = false
+    var shouldScrollCurrentBar = true
+
     public weak var dataSource: TabViewDataSource? = nil {
         didSet {
             pageTabItemsCount = dataSource?.tabViewItemCount(self) ?? 0
@@ -379,10 +380,13 @@ extension TabView: UICollectionViewDataSource {
             cell.hideCurrentBarView()
         }
         cell.tabItemButtonPressedBlock = { [weak self, weak cell] in
-
             guard let shouldScrollCurrentBar = self?.shouldScrollCurrentBar where shouldScrollCurrentBar,
-                let isMoveCurrentBarView = self?.isMoveCurrentBarView where !isMoveCurrentBarView,
-                let cell = cell where !cell.isCurrent  else {
+                let isMoveCurrentBarView = self?.isMoveCurrentBarView where !isMoveCurrentBarView, let cell = cell else {
+                
+                return
+            }
+            
+            if cell.isCurrent {
                 self?.pageItemPressedBlock?(index: fixedIndex, direction: .Forward, isCurrentPage: true)
                 return
             }

@@ -120,18 +120,22 @@ public class TabPageViewController: UIPageViewController {
 public extension TabPageViewController {
 
     public func displayControllerWithIndex(index: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool, didComplete: (Void -> Void)? = nil) {
-        guard tabItems.count > index else {
+
+        guard tabItems.count > index && shouldScrollCurrentBar else {
             return
         }
         let nextViewControllers: [UIViewController] = [tabItems[index]]
         beforeIndex = index
         shouldScrollCurrentBar = false
         tabView.shouldScrollCurrentBar = false
-
+        self.tabPageScrollEnable = false
+        self.view.userInteractionEnabled = false
         let completion: (Bool -> Void) = { [weak self] _ in
             self?.shouldScrollCurrentBar = true
             self?.tabView.shouldScrollCurrentBar = true
             self?.beforeIndex = index
+            self?.tabPageScrollEnable = false
+            self?.view.userInteractionEnabled = true
             /// 자식컨트롤러 선택시 델리게이트 애니메이션 후
             if let tabPageViewController = self, tabPageViewControllerDelegate = tabPageViewController.tabPageViewControllerDelegate
                 where nextViewControllers.count == 1 {
