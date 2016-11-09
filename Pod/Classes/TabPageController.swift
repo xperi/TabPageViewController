@@ -128,13 +128,11 @@ public extension TabPageViewController {
         beforeIndex = index
         shouldScrollCurrentBar = false
         tabView.shouldScrollCurrentBar = false
-        self.tabPageScrollEnable = false
         self.view.userInteractionEnabled = false
         let completion: (Bool -> Void) = { [weak self] _ in
             self?.shouldScrollCurrentBar = true
             self?.tabView.shouldScrollCurrentBar = true
             self?.beforeIndex = index
-            self?.tabPageScrollEnable = false
             self?.view.userInteractionEnabled = true
             /// 자식컨트롤러 선택시 델리게이트 애니메이션 후
             if let tabPageViewController = self, tabPageViewControllerDelegate = tabPageViewController.tabPageViewControllerDelegate
