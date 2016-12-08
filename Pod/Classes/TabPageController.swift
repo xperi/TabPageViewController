@@ -65,6 +65,10 @@ public class TabPageViewController: UIPageViewController {
             tabView.collectionView.contentOffset = tabViewContentOffset
         }
     }
+    
+    public var tabViewContentSize: CGSize? {
+        return tabView.collectionView.contentSize
+    }
 
     private var beforeIndex: Int = 0
     private var tabItemsCount: Int = 0
@@ -77,6 +81,7 @@ public class TabPageViewController: UIPageViewController {
             tabView.shouldScrollCurrentBar = shouldScrollCurrentBar
         }
     }
+    
     lazy private var tabView: TabView = self.configuredTabView()
 
     public override init(transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation, options: [String : AnyObject]?) {
