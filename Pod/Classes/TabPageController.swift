@@ -72,6 +72,8 @@ public class TabPageViewController: UIPageViewController {
 
     private var beforeIndex: Int = 0
     private var tabItemsCount: Int = 0
+    // 제스처로 뷰컨트롤러 움직일때 사용하는 플래그
+    private var isMovingViewController = false
     private var defaultContentOffsetX: CGFloat {
         return self.view.bounds.width
     }
@@ -117,9 +119,23 @@ public class TabPageViewController: UIPageViewController {
 
     override public func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-
         navigationController?.navigationBar.shadowImage = nil
         navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: .Default)
+    }
+    
+    override public func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        // 정상적으로 뷰컨트롤러가 이동되지 않고 화면이 사라질때 복구
+        if self.isMovingViewController {
+            if beforeIndex < tabItemsCount {
+                self.shouldScrollCurrentBar = true
+                displayControllerWithIndex(beforeIndex, direction: .Forward, animated: false, useDelegateCallBack: false)
+            }
+            tabView.updateCollectionViewUserInteractionEnabled(true)
+            self.isMovingViewController = false
+        }
+        // 화면에서 사라질때 터치가 막혀있으면 터치 가능하도록
+        self.view.userInteractionEnabled = true
     }
 }
 
@@ -128,7 +144,7 @@ public class TabPageViewController: UIPageViewController {
 
 public extension TabPageViewController {
 
-    public func displayControllerWithIndex(index: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool, didComplete: (Void -> Void)? = nil) {
+    public func displayControllerWithIndex(index: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool, didComplete: (Void -> Void)? = nil, useDelegateCallBack: Bool = true) {
         
         guard tabItems.count > index && shouldScrollCurrentBar else {
             return
@@ -141,7 +157,7 @@ public extension TabPageViewController {
         let completion: (Bool -> Void) = { [weak self] _ in
             /// 자식컨트롤러 선택시 델리게이트 애니메이션 후
             if let tabPageViewController = self, tabPageViewControllerDelegate = tabPageViewController.tabPageViewControllerDelegate
-                where nextViewControllers.count == 1 {
+                where (nextViewControllers.count == 1 && useDelegateCallBack) {
                 tabPageViewControllerDelegate.tabPageViewController(tabPageViewController, didSelectViewController:nextViewControllers[0])
             }
             didComplete?()
@@ -151,7 +167,7 @@ public extension TabPageViewController {
         }
         /// 자식컨트롤러 선택시 델리게이트 애니메이션 전
         if let tabPageViewControllerDelegate = self.tabPageViewControllerDelegate
-            where nextViewControllers.count == 1 {
+            where (nextViewControllers.count == 1 && useDelegateCallBack) {
             tabPageViewControllerDelegate.tabPageViewController(self, willSelectViewController:nextViewControllers[0])
         }
         
@@ -320,6 +336,7 @@ extension TabPageViewController: UIPageViewControllerDataSource {
 extension TabPageViewController: UIPageViewControllerDelegate {
 
     public func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+        self.isMovingViewController = true
         tabView.scrollToHorizontalCenter()
         // Order to prevent the the hit repeatedly during animation
         tabView.updateCollectionViewUserInteractionEnabled(false)
@@ -327,6 +344,7 @@ extension TabPageViewController: UIPageViewControllerDelegate {
     }
 
     public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        self.isMovingViewController = false
         if let currentIndex = currentIndex where currentIndex < tabItemsCount {
             tabView.updateCurrentIndex(currentIndex, shouldScroll: false)
             beforeIndex = currentIndex
