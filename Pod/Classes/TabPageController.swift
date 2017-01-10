@@ -18,7 +18,7 @@ public protocol TabTitleViewProtocol: NSObjectProtocol {
     func unHighlightTitle(option: TabPageOption?)
 }
 public protocol TabPageViewControllerDelegate: NSObjectProtocol {
-    func tabPageViewController(tabPageViewController: TabPageViewController, didSelectCurrentViewController: UIViewController)
+    func tabPageViewController(tabPageViewController: TabPageViewController, didPressedViewController: UIViewController, isCurrentPage: Bool)
     func tabPageViewController(tabPageViewController: TabPageViewController, willSelectViewController: UIViewController)
     func tabPageViewController(tabPageViewController: TabPageViewController, didSelectViewController: UIViewController)
     func tabPageViewController(tabPageViewController: TabPageViewController, didMoveViewController: UIViewController)
@@ -277,11 +277,13 @@ extension TabPageViewController {
         tabView.updateCurrentIndex(beforeIndex, animated: false, shouldScroll: true)
 
         tabView.pageItemPressedBlock = { [weak self] (index: Int, direction: UIPageViewControllerNavigationDirection, isCurrentPage: Bool) in
-            if isCurrentPage {
-                if let tabPageViewController = self, currentViewController =  tabPageViewController.viewControllers?.first {
-                    tabPageViewController.tabPageViewControllerDelegate?.tabPageViewController(tabPageViewController, didSelectCurrentViewController:currentViewController)
-                }
-            } else {
+            
+            if let tabPageViewController = self, currentViewController =  tabPageViewController.viewControllers?.first {
+                tabPageViewController.tabPageViewControllerDelegate?.tabPageViewController(tabPageViewController, didPressedViewController:currentViewController, isCurrentPage:isCurrentPage)
+                
+            }
+            
+            if !isCurrentPage {
                 self?.displayControllerWithIndex(index, direction: direction, animated: true)
             }
         }
@@ -391,13 +393,13 @@ extension TabPageViewController: UIScrollViewDelegate {
 
     }
     
-    public func scrollViewWillBeginDragging(scrollView: UIScrollView){
+    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         shouldScrollCurrentBar = false
         self.view.userInteractionEnabled = false
 
     }
     
-    public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView){
+    public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
         shouldScrollCurrentBar = true
         self.view.userInteractionEnabled = true
     }
