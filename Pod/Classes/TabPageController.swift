@@ -278,9 +278,8 @@ extension TabPageViewController {
 
         tabView.pageItemPressedBlock = { [weak self] (index: Int, direction: UIPageViewControllerNavigationDirection, isCurrentPage: Bool) in
             
-            if let tabPageViewController = self, currentViewController =  tabPageViewController.viewControllers?.first {
-                tabPageViewController.tabPageViewControllerDelegate?.tabPageViewController(tabPageViewController, didPressedViewController:currentViewController, isCurrentPage:isCurrentPage)
-                
+            if let tabPageViewController = self, nextViewController = self?.tabItems[index] {
+                tabPageViewController.tabPageViewControllerDelegate?.tabPageViewController(tabPageViewController, didPressedViewController:nextViewController, isCurrentPage:isCurrentPage)
             }
             
             if !isCurrentPage {
