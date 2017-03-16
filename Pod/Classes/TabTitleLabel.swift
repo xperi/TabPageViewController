@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class TabTitleLabel: UILabel, TabTitleViewProtocol {
+open class TabTitleLabel: UILabel, TabTitleViewProtocol {
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -20,22 +20,22 @@ public class TabTitleLabel: UILabel, TabTitleViewProtocol {
         commonInit()
     }
     
-    private func commonInit() {
-        self.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+    fileprivate func commonInit() {
+        self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
-    public func highlightTitle(option: TabPageOption?) {
+    open func highlightTitle(_ option: TabPageOption?) {
         self.textColor = option?.currentColor
         if let fontSize = option?.fontSize {
-            self.font = UIFont.boldSystemFontOfSize(fontSize)
+            self.font = UIFont.boldSystemFont(ofSize: fontSize)
         }
 
     }
 
-    public func unHighlightTitle(option: TabPageOption?) {
+    open func unHighlightTitle(_ option: TabPageOption?) {
         self.textColor = option?.defaultColor
         if let fontSize = option?.fontSize {
-            self.font = UIFont.boldSystemFontOfSize(fontSize)
+            self.font = UIFont.boldSystemFont(ofSize: fontSize)
         }
     }
 }

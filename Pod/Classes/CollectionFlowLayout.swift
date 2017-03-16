@@ -8,25 +8,25 @@
 import UIKit
 
 enum ScrollDirection {
-    case None
-    case Right
-    case Left
+    case none
+    case right
+    case left
 
-    static func direction(origin: CGFloat, moved: CGFloat) -> ScrollDirection {
+    static func direction(_ origin: CGFloat, moved: CGFloat) -> ScrollDirection {
         if origin > 0 {
             if origin > moved {
-                return .Left
+                return .left
             } else if origin < moved {
-                return .Right
+                return .right
             }
         }
-        return .None
+        return .none
     }
 }
 ///  가운데와 가장 가까운 후보셀을 정해 그 셀로 이동
 ///  맨 왼쪽과 오른쪽은 예외처리
 class CollectionFlowLayout: UICollectionViewFlowLayout {
-    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
 
         if let cv = self.collectionView {
             let contentWidth = cv.contentSize.width
@@ -39,7 +39,7 @@ class CollectionFlowLayout: UICollectionViewFlowLayout {
             let proposedContentOffsetCenterX = proposedContentOffset.x + halfWidth
 
             // 현재 보여지는 셀들
-            if let attributesForVisibleCells = self.layoutAttributesForElementsInRect(cvBounds) {
+            if let attributesForVisibleCells = self.layoutAttributesForElements(in: cvBounds) {
                 // 후보셀
                 var candidateAttributes: UICollectionViewLayoutAttributes?
 
@@ -49,18 +49,18 @@ class CollectionFlowLayout: UICollectionViewFlowLayout {
                 // 현재 보여지는 셀들 중 후보셀 찾기
                 for attributes in attributesForVisibleCells {
                     // 셀타입이 아닐때 처리 (footer , header 등)
-                    if attributes.representedElementCategory != UICollectionElementCategory.Cell {
+                    if attributes.representedElementCategory != UICollectionElementCategory.cell {
                         continue
                     }
                     // 해당 후보셀의 센터 좌표
                     let attributesCenterX  = attributes.center.x
                     // 스크롤 방향을 통해 후보리스트에 넣을건지 결정
-                    if scrollDirection == .Left {
+                    if scrollDirection == .left {
                         //왼쪽으로 스크롤시에는 후보셀이 컬렉션뷰 가운데 보다 왼쪽에 있을때 후보리스트 등록
                         if attributesCenterX < contentOffset.x + halfWidth {
                             candidateAttributesList.append(attributes)
                         }
-                    } else if scrollDirection == .Right {
+                    } else if scrollDirection == .right {
                         //오른쪽으로 스크롤시에는 후보셀이 컬렉션뷰 가운데 보다 오른쪽에 있을때 후보리스트 등록
                         if attributesCenterX > contentOffset.x + halfWidth {
                             candidateAttributesList.append(attributes)
@@ -103,6 +103,6 @@ class CollectionFlowLayout: UICollectionViewFlowLayout {
         }
         // 후보셀을 찾지 못하면 예상 도착지점으로 스크롤
         // Fallback
-        return super.targetContentOffsetForProposedContentOffset(proposedContentOffset)
+        return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
     }
 }

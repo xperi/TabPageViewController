@@ -26,13 +26,13 @@ class LimitedTabViewController: UIViewController {
         tabController.tabItems = tabItems
         tabController.option = setTabPageOption(tabController.tabItems.count)
         tabController.tabViewDataSource = self
-        tabController.displayControllerWithIndex(0, direction: .Forward, animated: false)
+        tabController.displayControllerWithIndex(0, direction: .forward, animated: false)
         addChildViewController(tabController)
         self.view.addSubview(tabController.view)
 
     }
 
-    func setTabPageOption(tabItemsCount: Int) -> TabPageOption {
+    func setTabPageOption(_ tabItemsCount: Int) -> TabPageOption {
         var option = TabPageOption()
         option.tabHeight = 45
         option.fontSize = 18
@@ -47,14 +47,14 @@ class LimitedTabViewController: UIViewController {
 }
 
 extension LimitedTabViewController: TabViewDataSource {
-    func tabViewItemCount(tabView: TabView) -> Int {
+    func tabViewItemCount(_ tabView: TabView) -> Int {
         return tabNames.count
     }
 
-    func tabView(tabView: TabView, viewForIndexPath index: Int) -> TabTitleViewProtocol {
+    func tabView(_ tabView: TabView, viewForIndexPath index: Int) -> TabTitleViewProtocol {
         let tabTitleLabel = TabTitleLabel()
         tabTitleLabel.text = tabNames[index]
-        tabTitleLabel.textAlignment = .Center
+        tabTitleLabel.textAlignment = .center
         return tabTitleLabel
     }
 }

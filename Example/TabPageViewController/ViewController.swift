@@ -21,26 +21,26 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func LimitedButton(button: UIButton) {
-        performSegueWithIdentifier("toLimitedTabViewController", sender: nil)
+    @IBAction func LimitedButton(_ button: UIButton) {
+        performSegue(withIdentifier: "toLimitedTabViewController", sender: nil)
     }
 
-    @IBAction func InfinityButton(button: UIButton) {
-        performSegueWithIdentifier("toInfinityTabViewController", sender: nil)
+    @IBAction func InfinityButton(_ button: UIButton) {
+        performSegue(withIdentifier: "toInfinityTabViewController", sender: nil)
     }
 }
 extension ViewController: TabViewDataSource {
-    func tabViewItemCount(tabView: TabView) -> Int {
+    func tabViewItemCount(_ tabView: TabView) -> Int {
         if !tabView.isInfinity {
             return 2
         }
         return 5
     }
 
-    func tabView(tabView: TabView, viewForIndexPath index: Int) -> TabTitleViewProtocol {
+    func tabView(_ tabView: TabView, viewForIndexPath index: Int) -> TabTitleViewProtocol {
         let tabTitleLabel = TabTitleLabel()
         tabTitleLabel.text = "label\(index)"
-        tabTitleLabel.textAlignment = .Center
+        tabTitleLabel.textAlignment = .center
         return tabTitleLabel
     }
 }
