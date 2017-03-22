@@ -279,6 +279,8 @@ extension TabView {
                 completion(true)
             }
 
+        } else {
+            isMoveCurrentBarView = false
         }
 
 
@@ -355,15 +357,17 @@ extension TabView {
 extension TabView: UICollectionViewDataSource {
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isInfinity ? pageTabItemsCount * 3 : pageTabItemsCount
+        let count = isInfinity ? pageTabItemsCount * 3 : pageTabItemsCount
+        return count
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = TabCollectionCell()
+        var cell: TabCollectionCell!
         if let tabCollectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: TabCollectionCell.cellIdentifier(), for: indexPath) as? TabCollectionCell {
             cell = tabCollectionCell
+        } else {
+            cell = TabCollectionCell()
         }
-        configureCell(cell, indexPath: indexPath)
         return cell
     }
 
@@ -418,6 +422,10 @@ extension TabView: UICollectionViewDataSource {
 // MARK: - UIScrollViewDelegate
 
 extension TabView: UICollectionViewDelegate {
+    
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        configureCell(cell as! TabCollectionCell, indexPath: indexPath)
+    }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
@@ -489,10 +497,12 @@ extension TabView: UICollectionViewDelegateFlowLayout {
         configureCell(cell, indexPath: indexPath)
         let tabWidth: CGFloat? = option.tabWidth
         if let tabWidth = tabWidth {
-            return CGSize(width: tabWidth, height: option.tabHeight)
+            let size = CGSize(width: tabWidth, height: option.tabHeight)
+            return size
 
         }
-        return cell.sizeThatFits(CGSize(width: collectionView.bounds.width, height: option.tabHeight))
+        let size = cell.sizeThatFits(CGSize(width: collectionView.bounds.width, height: option.tabHeight))
+        return size
     }
 
 

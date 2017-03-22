@@ -147,6 +147,7 @@ public extension TabPageViewController {
     public func displayControllerWithIndex(_ index: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool, didComplete: ((Void) -> Void)? = nil, useDelegateCallBack: Bool = true) {
         
         guard tabItems.count > index && shouldScrollCurrentBar else {
+            didComplete?()
             return
         }
 
