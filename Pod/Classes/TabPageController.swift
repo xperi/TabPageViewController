@@ -390,7 +390,14 @@ extension TabPageViewController: UIScrollViewDelegate {
         self.view.isUserInteractionEnabled = true
 
     }
-    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool){
+        if decelerate == false {
+            tabView.updateCurrentIndex(beforeIndex, shouldScroll: true)
+            shouldScrollCurrentBar = true
+            self.view.isUserInteractionEnabled = true
+        }
+    }
+
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         shouldScrollCurrentBar = false
         self.view.isUserInteractionEnabled = false
